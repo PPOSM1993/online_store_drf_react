@@ -3,6 +3,8 @@ import logo from '../assets/logo.png';
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import { MdOutlineLogin } from "react-icons/md";
+import Swal from 'sweetalert2'
+
 const Login = () => {
 
     const navigate = useNavigate()
@@ -26,8 +28,13 @@ const Login = () => {
             axios.defaults.headers.common['Authorization'] = `Bearer ${access}`
             navigate('/dashboard')
         } catch (err) {
-            //setError('Correo o contraseña incorrectos.')
-            setError(err.message)
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de inicio de sesión',
+                text: 'Correo o contraseña incorrectos',
+                confirmButtonColor: '#3085d6',
+            });
+
         }
     }
 
