@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from '../assets/logo.png';
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
-
+import { MdOutlineLogin } from "react-icons/md";
 const Login = () => {
 
     const navigate = useNavigate()
@@ -15,7 +15,7 @@ const Login = () => {
         setError('')
 
         try {
-            const res = await axios.post('http://localhost:8000/api/token/', {
+            const res = await axios.post('http://localhost:8000/api/accounts/login/', {
                 email,
                 password,
             })
@@ -82,8 +82,19 @@ const Login = () => {
                             Sign In
                         </button>
 
+                        <div className="text-center mt-4">
+                            <p className="text-sm">
+                                Don't have an account?{" "}
+                                <Link to="/register" className="text-blue-600 hover:underline">
+                                    Sign Up
+                                </Link>
+                            </p>
+                        </div>
+
                     </form>
                     {/* END FORM */}
+
+
                 </div>
 
             </div>
