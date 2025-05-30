@@ -66,3 +66,5 @@ class UserSerializer(serializers.ModelSerializer):
             'accepted_terms', 'is_active', 'is_staff', 'date_joined'
         ]
         read_only_fields = ['is_active', 'is_staff', 'date_joined']
+
+
