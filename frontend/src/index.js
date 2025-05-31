@@ -1,7 +1,10 @@
 export { default as App } from './App';
 export { default as DashboardComponent } from './components/DashboardComponent';
+export { default as Header } from './components/Header';
 export { default as LoginForm } from './components/LoginForm';
 export { default as RegisterForm } from './components/RegisterForm';
+export { default as Sidebar } from './components/Sidebar';
+export { default as UserDropdown } from './components/UserDropdown';
 export { default as Home } from './home/Home';
 export * from './main';
 export { default as Dashboard } from './pages/Dashboard';

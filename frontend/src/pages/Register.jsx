@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const Register = () => {
     const navigate = useNavigate()
@@ -31,15 +32,27 @@ const Register = () => {
         e.preventDefault()
         setError('')
         try {
-            const res = await axios.post('http://localhost:8000/api/accounts/register/', formData)
-            navigate('/login')
+            const res = await axios.post('http://localhost:8000/api/accounts/register/', formData);
+            Swal.fire({
+                icon: 'success',
+                title: 'Registro exitoso',
+                text: 'Revisa tu correo para confirmar tu cuenta.',
+                confirmButtonColor: '#3085d6',
+            });
+            navigate('/login');
         } catch (err) {
-            setError(err.message)
+            const message = err.response?.data?.email?.[0] || 'Error al registrarse. Verifica los campos.';
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de registro',
+                text: message,
+                confirmButtonColor: '#d33',
+            });
         }
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen px-2 bg-blue-50">
+        <div className="flex items-center justify-center min-h-screen px-4 bg-blue-50">
             <div className="w-full max-w-lg p-8 space-y-6 bg-white rounded-2xl shadow-lg">
                 <div className="flex justify-center">
                     <img src={logo} alt="Logo" className="w-32 h-auto" />
@@ -61,8 +74,8 @@ const Register = () => {
                             className="w-full px-2 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border-none focus:outline-none focus:ring-0" />
                         <input name="birth_date" type="date" placeholder="Fecha de nacimiento" value={formData.birth_date} onChange={handleChange}
                             className="w-full px-2 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border-none focus:outline-none focus:ring-0" />
-                        <input name="password" type="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} 
-                        className="w-full px-2 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border-none focus:outline-none focus:ring-0" required />
+                        <input name="password" type="password" placeholder="Contraseña" value={formData.password} onChange={handleChange}
+                            className="w-full px-2 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border-none focus:outline-none focus:ring-0" required />
                         <input name="password2" type="password" placeholder="Confirmar contraseña" value={formData.password2} onChange={handleChange}
                             className="w-full px-2 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border-none focus:outline-none focus:ring-0" required />
                     </div>
@@ -85,6 +98,15 @@ const Register = () => {
                         Sign Up
                     </button>
 
+                    {/* Google Signup */}
+                    <button
+                        type="button"
+                        className="w-full py-2 border mt-2 border-gray-300 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100"
+                    >
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
+                        Continuar con Google
+                    </button>
+                    {/* END Google Button */}
                     <div className="text-center mt-4">
                         <p className="text-sm">
                             Do you have account?{" "}
@@ -93,6 +115,7 @@ const Register = () => {
                             </Link>
                         </p>
                     </div>
+
                 </form>
             </div>
         </div>
