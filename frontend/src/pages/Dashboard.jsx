@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Sidebar, Header } from "../index.js";
-import { FaBoxOpen, FaUsers, FaShoppingCart, FaBars } from "react-icons/fa";
-
+import { Sidebar, Header, DashboardSalesTable } from "../index.js";
+import { FaBoxOpen, FaUsers, FaShoppingCart } from "react-icons/fa";
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -9,25 +8,29 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-blue-100 flex">
+      {/* Sidebar */}
       <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-      {/* Overlay */}
+      {/* Overlay para móviles */}
       {sidebarOpen && (
-        <div className="fixed inset-0 bg-black opacity-40 z-40 md:hidden" onClick={toggleSidebar}></div>
+        <div
+          className="fixed inset-0 bg-black opacity-40 z-40 md:hidden"
+          onClick={toggleSidebar}
+        ></div>
       )}
 
-      {/* Main content */}
+      {/* Contenido principal */}
       <div className="flex-1 md:ml-64">
-
         <Header />
 
-        <main className="flex-1 p-6">
+        <main className="p-6">
+          {/* Encabezado del dashboard */}
           <header className="flex items-center justify-between mb-8">
-            <h1 className="text-2xl font-bold text-gray-800 mb-6">Dashboard</h1>
+            <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
           </header>
 
-          {/* Tarjetas */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Tarjetas resumen */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <div className="bg-green-100 p-6 rounded-xl shadow flex items-center space-x-4">
               <FaShoppingCart className="text-indigo-500 text-3xl" />
               <div>
@@ -51,6 +54,12 @@ const Dashboard = () => {
                 <h3 className="text-xl font-semibold">300</h3>
               </div>
             </div>
+          </div>
+
+          {/* Tabla de últimos movimientos */}
+          <div className="flex flex-wrap gap-6">
+            <DashboardSalesTable />
+            {/* Aquí podrías agregar otro componente complementario si deseas */}
           </div>
         </main>
       </div>

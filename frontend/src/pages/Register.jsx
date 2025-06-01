@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import logo from '../assets/logo.png'
+import logoerp from '../assets/logoerp.png'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
@@ -55,7 +55,7 @@ const Register = () => {
         <div className="flex items-center justify-center min-h-screen px-4 bg-blue-50">
             <div className="w-full max-w-lg p-8 space-y-6 bg-white rounded-2xl shadow-lg">
                 <div className="flex justify-center">
-                    <img src={logo} alt="Logo" className="w-32 h-auto" />
+                    <img src={logoerp} alt="Logo" className="w-32 h-auto" />
                 </div>
 
                 {error && <p className="text-red-500 text-sm mb-4">{error}</p>}

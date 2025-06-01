@@ -84,10 +84,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           icon={FaShoppingCart}
           label="Ventas"
           submenu={[
-            { label: "Pedidos", href: "#" },
-            { label: "Facturación", href: "#" },
-            { label: "Clientes", href: "#" },
-            { label: "Carritos abandonados", href: "#" },
+            { label: "Orders", href: "#" },
+            { label: "Quotation", href: "#" },
+            { label: "Billing", href: "#" },
+            { label: "Customers", href: "#" },
+            { label: "Abandoned Carts", href: "#" },
           ]}
           open={openSubmenu}
           setOpen={setOpenSubmenu}

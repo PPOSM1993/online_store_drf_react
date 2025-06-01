@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from '../assets/logo.png';
+import logoerp from '../assets/logoerp.png';
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import { MdOutlineLogin } from "react-icons/md";
@@ -44,7 +44,7 @@ const Login = () => {
                 {/* LOGO */}
                 <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-lg">
                     <div className="flex justify-center">
-                        <img src={logo} alt="Logo" className="w-32 h-auto" />
+                        <img src={logoerp} alt="Logo" className="w-32 h-auto" />
                     </div>
 
                     {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
