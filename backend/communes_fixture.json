@@ -1,0 +1,26 @@
+[
+  {
+    "model": "customers.commune",
+    "pk": 1,
+    "fields": {
+      "name": "Providencia",
+      "city": 1
+    }
+  },
+  {
+    "model": "customers.commune",
+    "pk": 2,
+    "fields": {
+      "name": "Las Condes",
+      "city": 1
+    }
+  },
+  {
+    "model": "customers.commune",
+    "pk": 3,
+    "fields": {
+      "name": "Cerro Alegre",
+      "city": 2
+    }
+  }
+]

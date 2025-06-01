@@ -1,0 +1,26 @@
+[
+  {
+    "model": "customers.city",
+    "pk": 1,
+    "fields": {
+      "name": "Santiago",
+      "region": 1
+    }
+  },
+  {
+    "model": "customers.city",
+    "pk": 2,
+    "fields": {
+      "name": "Valpara\u00edso",
+      "region": 2
+    }
+  },
+  {
+    "model": "customers.city",
+    "pk": 3,
+    "fields": {
+      "name": "Vi\u00f1a del Mar",
+      "region": 2
+    }
+  }
+]
