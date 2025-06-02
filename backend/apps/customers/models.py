@@ -27,15 +27,15 @@ class City(models.Model):
     region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name='cities')
 
     def __str__(self):
-        return f"{self.name}, {self.region.name}"
+        return f"{self.name}"
 
 
-class Commune(models.Model):
-    name = models.CharField(max_length=100)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='communes')
+#class Commune(models.Model):
+#    name = models.CharField(max_length=100)
+#    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='communes')
 
-    def __str__(self):
-        return f"{self.name}, {self.city.name}"
+#    def __str__(self):
+#        return f"{self.name}, {self.city.name}"
 
 class Customers(models.Model):
     
@@ -74,5 +74,5 @@ class Customers(models.Model):
 
     # Relaciones geográficas
     region = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, blank=True)
-    commune = models.ForeignKey(Commune, on_delete=models.SET_NULL, null=True, blank=True)
+    #commune = models.ForeignKey(Commune, on_delete=models.SET_NULL, null=True, blank=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
