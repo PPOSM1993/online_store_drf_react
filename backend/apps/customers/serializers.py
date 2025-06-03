@@ -1,4 +1,4 @@
-from rest_framework.serializers import serializers
+from rest_framework import serializers
 from .models import *
 
 class RegionSerializer(serializers.ModelSerializer):
@@ -16,18 +16,39 @@ class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = ['id', 'name', 'region', 'region_id']
-
-
-class CommuneSerializer(serializers.ModelSerializer):
+class CustomersSerializer(serializers.ModelSerializer):
+    # Lectura: muestra el detalle anidado
+    region = RegionSerializer(read_only=True)
     city = CitySerializer(read_only=True)
+
+    # Escritura: acepta solo el ID
+    region_id = serializers.PrimaryKeyRelatedField(
+        queryset=Region.objects.all(), source='region', write_only=True, required=False
+    )
     city_id = serializers.PrimaryKeyRelatedField(
-        queryset=City.objects.all(), source='city', write_only=True
+        queryset=City.objects.all(), source='city', write_only=True, required=False
     )
 
     class Meta:
-        model = Commune
-        fields = ['id', 'name', 'city', 'city_id']
+        model = Customers
+        fields = [
+            'id',
+            'customer_type',
+            'first_name',
+            'tax_id',
+            'company_name',
+            'business_activity',
+            'email',
+            'phone',
+            'address',
+            'region', 'region_id',
+            'city', 'city_id',
+        ]
 
-
-class CustomersSerializer(serializers.ModelSerializer):
-    pass
+    def validate(self, data):
+        tipo = data.get('customer_type')
+        if tipo == 'individual' and not data.get('first_name'):
+            raise serializers.ValidationError("El nombre es obligatorio para clientes individuales.")
+        if tipo == 'company' and not data.get('company_name'):
+            raise serializers.ValidationError("La razón social es obligatoria para empresas.")
+        return data
