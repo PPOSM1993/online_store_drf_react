@@ -45,10 +45,20 @@ class CustomersSerializer(serializers.ModelSerializer):
             'city', 'city_id',
         ]
 
+
+    def validate_email(self, value):
+        if Customers.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Este correo ya existe.")
+        return value
+
+
     def validate(self, data):
         tipo = data.get('customer_type')
         if tipo == 'individual' and not data.get('first_name'):
             raise serializers.ValidationError("El nombre es obligatorio para clientes individuales.")
         if tipo == 'company' and not data.get('company_name'):
             raise serializers.ValidationError("La razón social es obligatoria para empresas.")
+        
+        if data['region'] and not data['city']:
+            raise serializers.ValidationError("Debe elegir una ciudad si selecciona una región.")
         return data
