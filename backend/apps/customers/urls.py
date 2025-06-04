@@ -1,7 +1,6 @@
-from rest_framework.routers import DefaultRouter
-from .views import CustomersViewSet
+from django.urls import path
+from .views import CustomersListAPIView
 
-router = DefaultRouter()
-router.register(r'customers', CustomersViewSet, basename='customers')
-
-urlpatterns = router.urls
+urlpatterns = [
+    path('', CustomersListAPIView.as_view(), name='customers-list'),  # 👈 ahora es raíz
+]

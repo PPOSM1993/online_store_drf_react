@@ -1,9 +1,13 @@
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status, permissions
 from .models import Customers
 from .serializers import CustomersSerializer
 
-class CustomersViewSet(viewsets.ModelViewSet):
-    queryset = Customers.objects.all()
-    serializer_class = CustomersSerializer
-    permission_classes = [IsAuthenticated]  # 🔐 Requiere autenticación para acceder
+class CustomersListAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        customers = Customers.objects.all()
+        serializer = CustomersSerializer(customers, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
