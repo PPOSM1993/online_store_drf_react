@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom'
+
 import {
   FaTachometerAlt,
   FaShoppingCart,
@@ -38,18 +40,18 @@ const SidebarItem = ({ icon: Icon, label, submenu, open, setOpen }) => {
 
       {submenu && (
         <div
-          className={`pl-6 space-y-1 transition-all duration-300 ease-in-out overflow-hidden ${
-            isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-          }`}
+          className={`pl-6 space-y-1 transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+            }`}
         >
           {submenu.map((item, idx) => (
-            <a
+            <Link
               key={idx}
-              href={item.href}
+              to={item.href}
               className="block text-sm text-gray-300 hover:text-indigo-400 transition-colors"
             >
               {item.label}
-            </a>
+            </Link>
+
           ))}
         </div>
       )}
@@ -62,9 +64,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800 w-64 bg-gray-900 text-white z-50 transform transition-transform duration-300 ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      } md:translate-x-0`}
+      className={`fixed top-0 left-0 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800 w-64 bg-gray-900 text-white z-50 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0`}
     >
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-gray-600 md:block">
@@ -86,7 +87,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           submenu={[
             { label: "Pedidos", href: "#" },
             { label: "Facturación", href: "#" },
-            { label: "Clientes", href: "#" },
+            { label: "Clientes", href: "/customers" }, // ✅ ruta funcional
             { label: "Carritos abandonados", href: "#" },
           ]}
           open={openSubmenu}
