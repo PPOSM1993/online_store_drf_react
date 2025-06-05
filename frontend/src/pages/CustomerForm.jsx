@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FaSave } from "react-icons/fa";
 import regionesData from "../../data/regionesData.json";
 import ciudadesData from "../../data/ciudadesData.json";
+import Swal from 'sweetalert2'
 
 const CustomerForm = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -28,6 +29,7 @@ const CustomerForm = () => {
 
     const [regions, setRegions] = useState([]);
     const [cities, setCities] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get('/data/regionesData.json').then(res => setRegions(res.data));
@@ -48,10 +50,24 @@ const CustomerForm = () => {
                     Authorization: `Bearer ${token}`
                 },
             });
-            alert("Cliente registrado correctamente");
-            
+
+            Swal.fire({
+                title: '¡Cliente registrado!',
+                text: 'El cliente fue creado exitosamente.',
+                icon: 'success',
+                confirmButtonText: 'Ir al Dashboard'
+            }).then(() => {
+                navigate('/dashboard'); // Ajusta esta ruta si tu dashboard tiene otro path
+            });
+
         } catch (error) {
             console.error("Error al registrar cliente:", error.response?.data || error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un problema al registrar el cliente.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
         }
     };
     return (
