@@ -31,6 +31,7 @@ class City(models.Model):
         return self.name
 
 # Cliente (Persona natural o empresa)
+# Cliente (Persona natural o empresa)
 class Customers(models.Model):
     CUSTOMER_TYPE_CHOICES = [
         ('individual', 'Persona'),
@@ -46,7 +47,7 @@ class Customers(models.Model):
     # Datos personales o empresa
     first_name = models.CharField("Full Name", max_length=100, blank=True, null=True)
     last_name = models.CharField("Last Name", max_length=100, blank=True, null=True)
-    company_name = models.CharField("Company Name", max_length=150, blank=True, null=True)
+    company = models.CharField("Company Name", max_length=150, blank=True, null=True)
 
     tax_id = models.CharField(
         "DNI",
@@ -76,6 +77,6 @@ class Customers(models.Model):
     created_at = models.DateTimeField("Created at", default=timezone.now)
 
     def __str__(self):
-        if self.customer_type == 'company' and self.company_name:
-            return self.company_name
+        if self.customer_type == 'company' and self.company:
+            return self.company
         return self.first_name or "Cliente sin nombre"
