@@ -67,7 +67,7 @@ class Customers(models.Model):
 
     # Contacto
     email = models.EmailField("Email", unique=True)
-    phone = models.CharField("Phone", validators=[phone_regex], max_length=17, blank=True)
+    phone = models.CharField("Phone", validators=[phone_regex], max_length=17, blank=True, unique=True)
     address = models.CharField("Address", max_length=255, blank=True, null=True)
 
     # Ubicación geográfica
