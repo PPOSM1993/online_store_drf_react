@@ -34,7 +34,7 @@ class CustomersSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'customer_type',
-            'first_name',
+            'full_name',
             'tax_id',
             'company',
             'business_activity',
@@ -55,7 +55,7 @@ class CustomersSerializer(serializers.ModelSerializer):
     def validate(self, data):
         tipo = data.get('customer_type')
         
-        if tipo == 'individual' and not data.get('first_name'):
+        if tipo == 'individual' and not data.get('full_name'):
             raise serializers.ValidationError("El nombre es obligatorio para clientes individuales.")
         
         if tipo == 'company' and not data.get('company'):
