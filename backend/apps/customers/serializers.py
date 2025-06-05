@@ -17,11 +17,9 @@ class CitySerializer(serializers.ModelSerializer):
         model = City
         fields = ['id', 'name', 'region', 'region_id']
 class CustomersSerializer(serializers.ModelSerializer):
-    # Lectura: muestra el detalle anidado
     region = RegionSerializer(read_only=True)
     city = CitySerializer(read_only=True)
 
-    # Escritura: acepta solo el ID
     region_id = serializers.PrimaryKeyRelatedField(
         queryset=Region.objects.all(), source='region', write_only=True, required=False
     )
@@ -35,6 +33,7 @@ class CustomersSerializer(serializers.ModelSerializer):
             'id',
             'customer_type',
             'first_name',
+            'last_name',  # 👈🏽 AÑADE ESTE CAMPO
             'tax_id',
             'company',
             'business_activity',
@@ -45,26 +44,24 @@ class CustomersSerializer(serializers.ModelSerializer):
             'city', 'city_id',
         ]
 
-
     def validate_email(self, value):
         if Customers.objects.filter(email=value).exists():
             raise serializers.ValidationError("Este correo ya existe.")
         return value
 
-
     def validate(self, data):
         tipo = data.get('customer_type')
-        
-        if tipo == 'individual' and not data.get('first_name'):
+
+        if tipo == 'individual' and not data.get('first_name') and not data.get('last_name'):
             raise serializers.ValidationError("El nombre es obligatorio para clientes individuales.")
         
         if tipo == 'company' and not data.get('company'):
             raise serializers.ValidationError("La razón social es obligatoria para empresas.")
-        
+
         region = data.get('region')
         city = data.get('city')
-        
+
         if region and not city:
             raise serializers.ValidationError("Debe elegir una ciudad si selecciona una región.")
-        
+
         return data
