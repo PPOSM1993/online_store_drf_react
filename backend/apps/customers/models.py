@@ -45,8 +45,7 @@ class Customers(models.Model):
     )
 
     # Datos personales o empresa
-    first_name = models.CharField("Full Name", max_length=100, blank=True, null=True)
-    last_name = models.CharField("Last Name", max_length=100, blank=True, null=True)
+    full_name = models.CharField("Full Name", max_length=100, blank=True, null=True)
     company = models.CharField("Company Name", max_length=150, blank=True, null=True)
 
     tax_id = models.CharField(
@@ -79,4 +78,4 @@ class Customers(models.Model):
     def __str__(self):
         if self.customer_type == 'company' and self.company:
             return self.company
-        return self.first_name or "Cliente sin nombre"
+        return self.full_name or "Cliente"
