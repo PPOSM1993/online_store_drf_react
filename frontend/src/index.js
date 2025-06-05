@@ -8,6 +8,7 @@ export { default as Sidebar } from './components/Sidebar';
 export { default as UserDropdown } from './components/UserDropdown';
 export { default as Home } from './home/Home';
 export * from './main';
+export { default as CustomerForm } from './pages/CustomerForm';
 export { default as Dashboard } from './pages/Dashboard';
 export { default as Login } from './pages/Login';
 export { default as Register } from './pages/Register';

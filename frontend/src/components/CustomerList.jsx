@@ -1,124 +1,138 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Sidebar, Header } from "../index.js";
-import { FaPen } from "react-icons/fa";
+import { FaPen, FaPlus } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { FaPlus } from "react-icons/fa";
+import { CustomerForm } from '../index.js';
+import { Link } from "react-router-dom";
 
 const CustomerList = () => {
     const [customers, setCustomers] = useState([]);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
 
-
+    const [listData, setlistData] = useState({
+        customer_type: 'individual',
+        first_name: '',
+        last_name: '',
+        company: '',
+        tax_id: '', // RUT
+        bussiness_activity: '', //Giro Comercial
+        email: '',
+        phone: '',
+        address: '',
+        region: '',
+        city: '',
+    });
 
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
-    //const token = localStorage.getItem("token");
-
-    //const [customers, setCustomers] = useState([])
-    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchCustomers = async () => {
             try {
-                const token = localStorage.getItem('access_token')
+                const token = localStorage.getItem('access_token');
                 const res = await axios.get('http://localhost:8000/api/customers/', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
-                })
-                setCustomers(res.data)
+                });
+                setCustomers(res.data);
             } catch (error) {
-                console.error('Error al obtener clientes:', error)
+                console.error('Error al obtener clientes:', error);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
-        }
+        };
 
-        fetchCustomers()
-    }, [])
-
+        fetchCustomers();
+    }, []);
 
     return (
-        <>
-            <div className='min-h-screen bg-blue-100 flex'>
-                <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+        <div className="min-h-screen bg-blue-100 flex flex-col md:flex-row">
+            <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-                {/* Overlay para móviles */}
-                {sidebarOpen && (
-                    <div
-                        className="fixed inset-0 bg-black opacity-40 z-40 md:hidden"
-                        onClick={toggleSidebar}
-                    ></div>
-                )}
+            {sidebarOpen && (
+                <div
+                    className="fixed inset-0 bg-black opacity-40 z-40 md:hidden"
+                    onClick={toggleSidebar}
+                ></div>
+            )}
 
-                {/* Contenido principal */}
-                <div className="flex-1 md:ml-64">
-                    <Header />
-                    <main className="flex-1 p-6">
-                        <h1 className="text-2xl font-bold mb-6 text-gray-800">Customer's List</h1>
-                        {/* Buscador */}
-                        <input
-                            type="text"
-                            placeholder="Buscar por nombre..."
-                            className="px-4 py-2 mb-4 border rounded-md w-full max-w-md bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-none focus:border-blue-500"
-                        />
+            <div className="flex-1 md:ml-64">
+                <Header />
+                <main className="p-4 sm:p-6">
+                    <h1 className="text-xl sm:text-2xl font-bold mb-4 text-gray-800">Customer's List</h1>
 
-                        {loading ? (
-                            <p>Cargando clientes...</p>
-                        ) : (
+                    <input
+                        type="text"
+                        placeholder="Buscar por nombre..."
+                        className="w-full max-w-md px-4 py-2 mb-4 border rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-none focus:border-blue-100"
+                    />
 
-                            <div className="bg-white rounded-xl shadow p-4 overflow-x-auto">
-                                <table className="min-w-full table-auto border border-gray-200">
-                                    <thead className="bg-gray-50">
-                                        <tr>
-                                            <th className="p-2 text-left">ID</th>
-                                            <th className="p-2 text-left">Name</th>
-                                            <th className="p-2 text-left">Email</th>
-                                            <th className="p-2 text-left">Phone</th>
-                                            <th className="p-2 text-left">Address</th>
-                                            <th className="p-2 text-left">Options</th>
+                    {loading ? (
+                        <p className="text-gray-700">Cargando clientes...</p>
+                    ) : (
+                        <div className="bg-white rounded-xl shadow p-4 overflow-x-auto">
+                            <table className="min-w-full table-auto border border-gray-200 text-sm sm:text-base">
+                                <thead className="bg-gray-50">
+                                    <tr>
+                                        <th className="p-2 text-left">Name</th>
+                                        <th className="p-2 text-left">Email</th>
+                                        <th className="p-2 text-left">Phone</th>
+                                        <th className="p-2 text-left">Address</th>
+                                        <th className="p-2 text-left">Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {customers.map((c) => (
+                                        <tr key={c.id} className="border-t hover:bg-gray-50">
+                                            {/* Listado de Cliente Segun Persona o Cliente */}
+                                            {
+                                                c.customer_type === 'individual' ? (
+                                                    <>
+                                                        <td className="p-2">
+                                                            {c.first_name} {c.last_name}
+                                                        </td>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <td className="p-2">
+                                                            {c.company}
+                                                        </td>
+                                                    </>
+                                                )
+                                            }
+                                            <td className="p-2">{c.email}</td>
+                                            <td className="p-2">{c.phone}</td>
+                                            <td className="p-2">{c.address}</td>
+                                            <td className="p-3 space-x-2 whitespace-nowrap">
+                                                <button className="bg-yellow-500 text-black px-3 py-2 rounded text-xs sm:text-sm">
+                                                    <FaPen className="inline mr-1" /> Edit
+                                                </button>
+                                                <button className="bg-red-700 text-white px-3 py-2 rounded text-xs sm:text-sm">
+                                                    <MdDelete className="inline mr-1" /> Delete
+                                                </button>
+                                            </td>
                                         </tr>
-                                    </thead>
+                                    ))}
+                                </tbody>
+                            </table>
 
-                                    <tbody>
-                                        {customers.map((c) => (
-                                            <tr key={c.id} className="border-t">
-                                                <td className="p-2">{c.id}</td>
-                                                <td className="p-2">{c.first_name || c.company_name}</td>
-                                                <td className="p-2">{c.email}</td>
-                                                <td className="p-2">{c.phone}</td>
-                                                <td className="p-2">{c.address}</td>
-                                                <td className="p-2">
-                                                    <button className="bg-yellow-500 text-black px-4 py-2 rounded mr-2">
-                                                        <FaPen className="inline mr-1" />
-                                                        Edit
-                                                    </button>
-                                                    <button className="bg-red-700 text-white px-4 py-2 rounded">
-                                                        <MdDelete className="inline mr-1" />
-                                                        Delete
-                                                    </button>
+                            <div className="mt-4 text-right">
+                                <button className="bg-green-700 text-white p-3 rounded-md shadow hover:bg-green-800 transition">
+                                    <Link to="/customers/create" className="flex items-center justify-center space-x-2">
+                                        <FaPlus className="inline mr-1" />
+                                        New Customer
+                                    </Link>
 
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                                <div className="mt-4 text-gray-500">
-                                    <button className="bg-green-700 text-white px-6 py-3 rounded">
-                                        <FaPlus />
-                                    </button>
-                                </div>
+                                </button>
                             </div>
-
-                        )}
-
-                    </main>
-                </div>
+                        </div>
+                    )}
+                </main>
             </div>
-        </>
-    )
-}
+        </div>
+    );
+};
 
 export default CustomerList;
-
-
