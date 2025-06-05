@@ -5,6 +5,9 @@ from .models import Customers
 from .serializers import CustomersSerializer
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
+from rest_framework.decorators import api_view, permission_classes
+
 
 class CustomersListAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -19,3 +22,15 @@ class CreateCustomerAPIView(CreateAPIView):
     queryset = Customers.objects.all()
     serializer_class = CustomersSerializer
     permission_classes = [IsAuthenticated]
+    
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def DeleteCustomer(request, pk):
+    try:
+        customer = Customers.objects.get(pk=pk)
+    except Customers.DoesNotExist:
+        return Response({"error": "Cliente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+    customer.delete()
+    return Response({"message": "Cliente eliminado correctamente"}, status=status.HTTP_204_NO_CONTENT)
