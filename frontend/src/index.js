@@ -1,5 +1,6 @@
 export { default as App } from './App';
 export { default as CustomerList } from './components/CustomerList';
+export { default as CustomerTable } from './components/CustomerTable';
 export { default as DashboardComponent } from './components/DashboardComponent';
 export { default as Header } from './components/Header';
 export { default as LoginForm } from './components/LoginForm';
