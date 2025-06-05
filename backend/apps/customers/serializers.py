@@ -36,7 +36,7 @@ class CustomersSerializer(serializers.ModelSerializer):
             'customer_type',
             'first_name',
             'tax_id',
-            'company_name',
+            'company',
             'business_activity',
             'email',
             'phone',
@@ -54,11 +54,17 @@ class CustomersSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         tipo = data.get('customer_type')
+        
         if tipo == 'individual' and not data.get('first_name'):
             raise serializers.ValidationError("El nombre es obligatorio para clientes individuales.")
-        if tipo == 'company' and not data.get('company_name'):
+        
+        if tipo == 'company' and not data.get('company'):
             raise serializers.ValidationError("La razón social es obligatoria para empresas.")
         
-        if data['region'] and not data['city']:
+        region = data.get('region')
+        city = data.get('city')
+        
+        if region and not city:
             raise serializers.ValidationError("Debe elegir una ciudad si selecciona una región.")
+        
         return data
