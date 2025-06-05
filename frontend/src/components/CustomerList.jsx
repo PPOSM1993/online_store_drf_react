@@ -4,12 +4,14 @@ import { Sidebar, Header } from "../index.js";
 import { FaPen, FaPlus } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { CustomerForm } from '../index.js';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const CustomerList = () => {
     const [customers, setCustomers] = useState([]);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     const [listData, setlistData] = useState({
         customer_type: 'individual',
@@ -46,6 +48,52 @@ const CustomerList = () => {
 
         fetchCustomers();
     }, []);
+
+
+    // Dentro de tu componente:
+
+    const handleDelete = async (customerId) => {
+        const result = await Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción eliminará el cliente de forma permanente.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+        });
+
+        if (result.isConfirmed) {
+            try {
+                const token = localStorage.getItem('access_token');
+
+                await axios.delete(`http://localhost:8000/api/customers/delete/${customerId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                await Swal.fire({
+                    title: 'Eliminado',
+                    text: 'El cliente ha sido eliminado correctamente.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+
+                navigate('/customers'); // O recarga la lista si estás en un listado
+
+            } catch (error) {
+                console.error("Error al eliminar cliente:", error.response?.data || error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'No se pudo eliminar el cliente.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        }
+    };
 
     return (
         <div className="min-h-screen bg-blue-100 flex flex-col md:flex-row">
@@ -109,7 +157,10 @@ const CustomerList = () => {
                                                 <button className="bg-yellow-500 text-black px-3 py-2 rounded text-xs sm:text-sm">
                                                     <FaPen className="inline mr-1" /> Edit
                                                 </button>
-                                                <button className="bg-red-700 text-white px-3 py-2 rounded text-xs sm:text-sm">
+                                                <button
+                                                    className="bg-red-700 text-white px-3 py-2 rounded text-xs sm:text-sm cursor-pointer hover:bg-red-800 transition"
+                                                    onClick={() => handleDelete(c.id)}
+                                                >
                                                     <MdDelete className="inline mr-1" /> Delete
                                                 </button>
                                             </td>

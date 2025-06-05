@@ -57,7 +57,7 @@ const CustomerForm = () => {
                 icon: 'success',
                 confirmButtonText: 'Ir al Dashboard'
             }).then(() => {
-                navigate('/dashboard'); // Ajusta esta ruta si tu dashboard tiene otro path
+                navigate('/customers'); // Ajusta esta ruta si tu dashboard tiene otro path
             });
 
         } catch (error) {
@@ -70,7 +70,7 @@ const CustomerForm = () => {
             });
         }
     };
-
+    
     return (
         <>
             <div className="min-h-screen bg-blue-100 flex flex-col md:flex-row">
