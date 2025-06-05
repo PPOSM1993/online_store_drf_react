@@ -34,3 +34,22 @@ def DeleteCustomer(request, pk):
 
     customer.delete()
     return Response({"message": "Cliente eliminado correctamente"}, status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def SearchCustomers(request):
+    query = request.GET.get('q', '')
+    if query:
+        customers = Customers.objects.filter(
+            first_name__icontains=query
+        ) | Customers.objects.filter(
+            last_name__icontains=query
+        ) | Customers.objects.filter(
+            company__icontains=query
+        )
+    else:
+        customers = Customers.objects.all()
+
+    serializer = CustomersSerializer(customers, many=True)
+    return Response(serializer.data)
