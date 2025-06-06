@@ -71,7 +71,7 @@ const CustomerTable = () => {
       name: "Nombre o Empresa",
       selector: row =>
         row.customer_type === "individual"
-          ? `${row.first_name || ""} ${row.last_name || ""}`.trim()
+          ? row.full_name
           : row.company || "-",
       sortable: true,
     },

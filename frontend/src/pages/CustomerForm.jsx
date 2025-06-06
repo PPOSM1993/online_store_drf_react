@@ -15,8 +15,7 @@ const CustomerForm = () => {
 
     const [formData, setFormData] = useState({
         customer_type: 'individual',
-        first_name: '',
-        last_name: '',
+        full_name: '',
         company: '',
         tax_id: '', // RUT
         bussiness_activity: '', //Giro Comercial
@@ -57,7 +56,7 @@ const CustomerForm = () => {
                 icon: 'success',
                 confirmButtonText: 'Ir al Dashboard'
             }).then(() => {
-                navigate('/dashboard'); // Ajusta esta ruta si tu dashboard tiene otro path
+                navigate('/customers'); // Ajusta esta ruta si tu dashboard tiene otro path
             });
 
         } catch (error) {
@@ -115,8 +114,8 @@ const CustomerForm = () => {
                                             <label className="block text-sm font-medium text-gray-700">Nombre</label>
                                             <input
                                                 type="text"
-                                                name="first_name"
-                                                value={formData.first_name}
+                                                name="full_name"
+                                                value={formData.full_name}
                                                 onChange={handleChange}
                                                 className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                             />
