@@ -51,3 +51,22 @@ def SearchCustomers(request):
 
     serializer = CustomersSerializer(customers, many=True)
     return Response(serializer.data)
+
+@api_view(['GET', 'PUT'])
+@permission_classes([IsAuthenticated])
+def CustomerDetail(request, pk):
+    try:
+        customer = Customers.objects.get(pk=pk)
+    except Customers.DoesNotExist:
+        return Response({"error": "Cliente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = CustomersSerializer(customer)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = CustomersSerializer(customer, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
