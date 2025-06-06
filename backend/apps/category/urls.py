@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import *
+from .views import CategoryListView, CreateCategoryAPIView
 
 urlpatterns = [
-    path('categories/', CategoryListAPIView.as_view(), name='category-list'),
-    path('create/', CreateCategoryAPIView.as_view(), name='category-create'),
+    path('categories/', CategoryListView.as_view(), name='category_list'), # List all categories
+        path('create/', CreateCategoryAPIView.as_view(), name='create-customer'),
+
 ]
