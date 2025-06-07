@@ -22,3 +22,33 @@ class CreateCategoryAPIView(CreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticated]
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def SearchCategories(request):
+    query = request.GET.get('q', '')
+    if query:
+        categories = Category.objects.filter(
+            name__icontains=query
+        )| Category.objects.filter(
+            description__icontains=query  
+        )
+    else:
+        categories = Category.objects.all()
+
+    serializer = CategorySerializer(categories, many=True)
+    return Response(serializer.data)
+
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def DeleteCategories(request, pk):
+    try:
+        categories = Category.objects.get(pk=pk)
+    except Category.DoesNotExist:
+        return Response({"error": "Categoria no encontrada"}, status=status.HTTP_404_NOT_FOUND)
+
+    categories.delete()
+    return Response({"message": "Categoria eliminada correctamente"}, status=status.HTTP_204_NO_CONTENT)
