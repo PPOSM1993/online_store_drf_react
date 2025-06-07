@@ -1,4 +1,6 @@
-Sistema ERP DRF y React JS
+#online_store_drf_react
+
+
 Sistema ERP desarrollado para la gestion y administracion de recursos humanos y empresariales, el cual esta desarrollado en Python, Javascript, Django Rest Framework, React JS, PostgreSQL, Tailwindcss.
 
 Sistema en desarrollo
