@@ -135,6 +135,7 @@ const CategoryForm = () => {
                   <FaSave className="inline mr-1" /> Guardar Categoría
                 </button>
               </div>
+            </div>
             </form>
           </div>
         </main>
