@@ -17,4 +17,3 @@ class CategorySerializer(serializers.ModelSerializer):
         if value is not None and len(value) > 500:
             raise serializers.ValidationError("Description cannot exceed 500 characters.")
         return value.strip() if value else value
-
