@@ -1,4 +1,5 @@
 export { default as App } from './App';
+export { default as BooksList } from './components/BooksList';
 export { default as CategoryList } from './components/CategoryList';
 export { default as CategoryTable } from './components/CategoryTable';
 export { default as CustomerList } from './components/CustomerList';
@@ -11,6 +12,7 @@ export { default as Sidebar } from './components/Sidebar';
 export { default as UserDropdown } from './components/UserDropdown';
 export { default as Home } from './home/Home';
 export * from './main';
+export { default as BooksForm } from './pages/BooksForm';
 export { default as CategoryForm } from './pages/CategoryForm';
 export { default as CustomerForm } from './pages/CustomerForm';
 export { default as Dashboard } from './pages/Dashboard';

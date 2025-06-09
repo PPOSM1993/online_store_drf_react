@@ -110,7 +110,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           label="Inventario"
           submenu={[
             { label: "Productos", href: "#" },
-            { label: "Categorías", href: "#" },
+            { label: "Categorías", href: "/category" },
           ]}
           open={openSubmenu}
           setOpen={setOpenSubmenu}

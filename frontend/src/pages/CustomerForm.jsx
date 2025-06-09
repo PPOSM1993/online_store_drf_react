@@ -104,7 +104,7 @@ const CustomerForm = () => {
                             <div>
                                 <label className="block text-sm font-medium">Tipo de Cliente</label>
                                 <select name="customer_type" value={formData.customer_type} onChange={handleChange}
-                                    className="w-full mt-1 p-2 border rounded">
+                                    className="w-full mt-1 p-2 border rounded border-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                     <option value="individual">Persona</option>
                                     <option value="company">Empresa</option>
                                 </select>

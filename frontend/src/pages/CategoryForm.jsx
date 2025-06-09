@@ -59,6 +59,8 @@ const CategoryForm = () => {
 
       Swal.fire({
         title: "Éxito",
+        text: `Categoria ${id ? "actualizada" : "registrado"} correctamente.`,
+
         text: `Categoría ${id ? "actualizada" : "registrada"} correctamente.`,
         icon: "success",
       }).then(() => navigate("/category"));
@@ -94,6 +96,25 @@ const CategoryForm = () => {
                   className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                   placeholder="Nombre de la categoría"
                 />
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Descripción</label>
+                  <textarea
+                    name="description"
+                    value={formData.description || ""}
+                    onChange={handleChange}
+                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
+                    rows="4"
+                    placeholder="Descripción de la categoría"
+                  ></textarea>
+                </div>
+                <div className="text-right">
+                  <button
+                    type="submit"
+                    className="bg-green-700 text-white p-3 rounded-md shadow hover:bg-green-800 transition border-none focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <FaSave className="inline mr-1" /> Guardar Categoría
+                  </button>
+                </div>
+
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">Descripción</label>
