@@ -65,6 +65,8 @@ const CategoryForm = () => {
       Swal.fire({
         title: "Éxito",
         text: `Categoria ${id ? "actualizada" : "registrado"} correctamente.`,
+
+        text: `Cliente ${id ? "actualizado" : "registrado"} correctamente.`,
         icon: "success",
       }).then(() => navigate("/category"));
 
@@ -98,7 +100,6 @@ const CategoryForm = () => {
                   className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                   placeholder="Nombre de la categoría"
                 />
-              </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">Descripción</label>
                 <textarea
