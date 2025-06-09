@@ -17,6 +17,15 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         <Route path="/dashboard" element={isAuthenticated() ? <Dashboard /> : <Navigate to="/login" />} />
+        
+        <Route path="/customers" element={isAuthenticated() ? <CustomerList /> : <Navigate to="/login" />} />
+        <Route path="/customers/create" element={isAuthenticated() ? <CustomerForm /> : <Navigate to="/login" />} />
+        <Route path="/customers/edit/:id" element={isAuthenticated() ? <CustomerForm /> : <Navigate to="/login" />} />
+        
+        <Route path="/category" element={isAuthenticated() ? <CategoryList /> : <Navigate to="/login" />} />
+        <Route path="/category/create" element={isAuthenticated() ? <CategoryForm /> : <Navigate to="/login" />} />
+        <Route path="/category/edit/:id" element={isAuthenticated() ? <CategoryForm /> : <Navigate to="/login" />} />
+
 
         <Route path="/customers" element={isAuthenticated() ? <CustomerList /> : <Navigate to="/login" />} />
         <Route path="/customers/create" element={isAuthenticated() ? <CustomerForm /> : <Navigate to="/login" />} />
