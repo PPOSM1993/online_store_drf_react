@@ -1,40 +1,79 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Sidebar, Header } from "../index";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
 import Swal from "sweetalert2";
 import { FaSave } from "react-icons/fa";
 
+
 const CategoryForm = () => {
+
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", description: "" });
   const navigate = useNavigate();
+  const { id } = useParams();  // <-- para saber si estamos editando
+
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+  });
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
-  const handleChange = e => {
+  // Precargar datos si estamos editando
+  useEffect(() => {
+    if (id) {
+      const fetchCustomer = async () => {
+        try {
+          const token = localStorage.getItem("access_token");
+          const res = await axios.get(`http://localhost:8000/api/category/edit/${id}/`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setFormData(res.data);
+        } catch (error) {
+          console.error("Error al cargar cliente:", error);
+          Swal.fire("Error", "No se pudo cargar el cliente.", "error");
+        }
+      };
+      fetchCustomer();
+    }
+  }, [id]);
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("access_token");
-      await axios.post("http://localhost:8000/api/category/create/", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
 
-      Swal.fire("¡Categoría registrada!", "", "success").then(() => {
-        navigate("/category");
-      });
+      if (id) {
+        await axios.put(`http://localhost:8000/api/category/edit/${id}/`, formData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      } else {
+        await axios.post(`http://localhost:8000/api/category/create/`, formData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      }
+
+      Swal.fire({
+        title: "Éxito",
+        text: `Categoria ${id ? "actualizada" : "registrado"} correctamente.`,
+        icon: "success",
+      }).then(() => navigate("/category"));
+
     } catch (error) {
-      console.error("Error al registrar categoría:", error);
-      Swal.fire("Error", "No se pudo registrar la categoría.", "error");
+      const errorMsg = error.response?.data?.email?.[0] || "Error al guardar.";
+      Swal.fire("Error", errorMsg, "error");
     }
   };
+
 
   return (
     <div className="min-h-screen bg-blue-100 flex flex-col md:flex-row">
@@ -53,7 +92,7 @@ const CategoryForm = () => {
                 <input
                   type="text"
                   name="name"
-                  value={formData.name}
+                  value={formData.name || ""}
                   onChange={handleChange}
                   required
                   className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
@@ -64,11 +103,11 @@ const CategoryForm = () => {
                 <label className="block text-sm font-medium text-gray-700">Descripción</label>
                 <textarea
                   name="description"
-                  value={formData.description}
+                  value={formData.description || ""}
                   onChange={handleChange}
                   className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                   rows="4"
-                    placeholder="Descripción de la categoría"
+                  placeholder="Descripción de la categoría"
                 ></textarea>
               </div>
               <div className="text-right">
