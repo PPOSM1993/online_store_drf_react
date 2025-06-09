@@ -6,5 +6,5 @@ urlpatterns = [
     path('create/', CreateCategoryAPIView.as_view(), name='create-category'), # Create a new category
     path('delete/<int:pk>/', DeleteCategories, name='delete-categories'),
     path('search/', SearchCategories, name='search-categories'),
-
+    path('delete/<int:pk>/', CategoryDetail, name='customer-detail-or-update'),
 ]
