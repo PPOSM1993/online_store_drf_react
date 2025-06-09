@@ -12,9 +12,13 @@ class Editorial(models.Model):
     website = models.URLField(blank=True, null=True)
     country = models.CharField(max_length=100, blank=True, null=True)
 
-    def _str_(self):
+    def __str__(self):
         return self.name
-
+    
+    class Meta:
+        verbose_name = 'Editorial'
+        verbose_name_plural = 'Editorials'
+        ordering = ['name']
 
 class Author(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -23,7 +27,7 @@ class Author(models.Model):
     def _str_(self):
         return self.name
 
-class Book(models.Model):
+class Books(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
     isbn = models.CharField(max_length=20, unique=True)
@@ -33,12 +37,14 @@ class Book(models.Model):
     discount_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     stock = models.PositiveIntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    description = models.TextField(blank=True, null=True, help_text="Descripción del libro", max_length=2000)
 
     editorial = models.ForeignKey("Editorial", on_delete=models.SET_NULL, null=True)
     language = models.CharField(max_length=50)
     pages = models.PositiveIntegerField()
     publication_date = models.DateField()
     cover_image = models.ImageField(upload_to='book_covers/', blank=True, null=True)
+    is_featured = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         # Cálculo de precio final con IVA y descuento si aplica
@@ -48,4 +54,4 @@ class Book(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        return self.name
