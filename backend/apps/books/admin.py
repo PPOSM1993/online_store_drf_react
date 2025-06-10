@@ -1,8 +1,19 @@
 from django.contrib import admin
+
+from .models import Author, Publisher, Book
+from apps.category.models import Category
+from .models import Author
+
+# Register your models here.
+
+@admin.register(Publisher)
+class PublisherAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+
 from django.http import HttpResponse
 import csv
 from .models import Author, Book, Editorial
-
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('name', 'bio')
@@ -16,6 +27,11 @@ class EditorialAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
+
+    list_display = ('title', 'author', 'publisher', 'isbn', 'purchase_price', 'vat_percentage', 'final_price', 'stock', 'is_featured')
+    search_fields = ('title', 'isbn', 'author__name', 'publisher__name')
+    list_filter = ('category', 'language', 'publisher', 'author')
+
     list_display = (
         'title', 'author', 'isbn', 'purchase_price',
         'vat_percentage', 'final_price', 'stock',
@@ -66,5 +82,3 @@ class BookAdmin(admin.ModelAdmin):
     def mark_as_featured(self, request, queryset):
         updated = queryset.update(is_featured=True)
         self.message_user(request, f"{updated} libros marcados como destacados.")
-
-
