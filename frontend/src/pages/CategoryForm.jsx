@@ -59,6 +59,8 @@ const CategoryForm = () => {
 
       Swal.fire({
         title: "Éxito",
+        text: `Categoria ${id ? "actualizada" : "registrado"} correctamente.`,
+
         text: `Categoría ${id ? "actualizada" : "registrada"} correctamente.`,
         icon: "success",
       }).then(() => navigate("/category"));
