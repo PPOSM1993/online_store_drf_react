@@ -36,6 +36,7 @@ class Book(models.Model):
     editorial = models.ForeignKey(Editorial, on_delete=models.SET_NULL, null=True)
     language = models.CharField(max_length=50)
     pages = models.PositiveIntegerField()
+    is_featured = models.BooleanField(default=False)
     publication_date = models.DateField()
     cover_image = models.ImageField(upload_to='book_covers/', blank=True, null=True)
 
