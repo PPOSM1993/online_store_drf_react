@@ -1,15 +1,12 @@
 from django.contrib import admin
-from .models import Author, Editorial, Book
+from .models import Author, Publisher, Book
 from apps.category.models import Category
 from .models import Author
 
 # Register your models here.
 
-
-
-
-@admin.register(Editorial)
-class EditorialAdmin(admin.ModelAdmin):
+@admin.register(Publisher)
+class PublisherAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
 
@@ -21,13 +18,6 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = (
-        'title', 'author', 'isbn', 'purchase_price',
-        'vat_percentage', 'final_price', 'stock',
-        'editorial', 'language', 'publication_date'
-    )
-    list_filter = ('editorial', 'language')
-    search_fields = ('title', 'isbn', 'author__name', )
-    ordering = ('title',)
-    readonly_fields = ('final_price',)
-    autocomplete_fields = ('author', 'editorial')
+    list_display = ('title', 'author', 'publisher', 'isbn', 'purchase_price', 'vat_percentage', 'final_price', 'stock', 'is_featured')
+    search_fields = ('title', 'isbn', 'author__name', 'publisher__name')
+    list_filter = ('category', 'language', 'publisher', 'author')
