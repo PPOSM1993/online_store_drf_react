@@ -36,6 +36,7 @@ class Book(models.Model):
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, related_name='books')
     language = models.CharField(max_length=50)
     pages = models.PositiveIntegerField()
+    is_featured = models.BooleanField(default=False)
     publication_date = models.DateField()
     cover_image = models.ImageField(upload_to='book_covers/', blank=True, null=True)
     is_featured = models.BooleanField(default=False)
