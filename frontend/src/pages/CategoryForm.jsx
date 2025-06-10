@@ -71,76 +71,59 @@ const CategoryForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-blue-100 flex flex-col md:flex-row">
-      <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black opacity-40 z-40 md:hidden"
-          onClick={toggleSidebar}
-        ></div>
-      )}
-      <div className="flex-1 md:ml-64">
-        <Header />
-        <main className="p-4 sm:p-6">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Registrar Categoría</h1>
-          <div className="bg-white p-6 rounded-xl shadow-md">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Nombre</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name || ""}
-                  onChange={handleChange}
-                  required
-                  className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
-                  placeholder="Nombre de la categoría"
-                />
+    <>
+      <div className="min-h-screen bg-blue-100 flex flex-col md:flex-row">
+        <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black opacity-40 z-40 md:hidden"
+            onClick={toggleSidebar}
+          ></div>
+        )}
+        <div className="flex-1 md:ml-64">
+          <Header />
+          <main className="p-4 sm:p-6">
+            <h1 className="text-2xl font-bold text-gray-800 mb-4">Registrar Categoría</h1>
+            <div className="bg-white p-6 rounded-xl shadow-md">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Descripción</label>
-                  <textarea
-                    name="description"
-                    value={formData.description || ""}
+                  <label className="block text-sm font-medium text-gray-700">Nombre</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name || ""}
                     onChange={handleChange}
+                    required
                     className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
-                    rows="4"
-                    placeholder="Descripción de la categoría"
-                  ></textarea>
-                </div>
-                <div className="text-right">
-                  <button
-                    type="submit"
-                    className="bg-green-700 text-white p-3 rounded-md shadow hover:bg-green-800 transition border-none focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <FaSave className="inline mr-1" /> Guardar Categoría
-                  </button>
-                </div>
+                    placeholder="Nombre de la categoría"
+                  />
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Descripción</label>
+                    <textarea
+                      name="description"
+                      value={formData.description || ""}
+                      onChange={handleChange}
+                      className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
+                      rows="4"
+                      placeholder="Descripción de la categoría"
+                    ></textarea>
+                  </div>
+                  <div className="text-right">
+                    <button
+                      type="submit"
+                      className="bg-green-700 text-white p-3 rounded-md shadow hover:bg-green-800 transition border-none focus:outline-none focus:ring-2 focus:ring-blue-500">
+                      <FaSave className="inline mr-1" /> Guardar Categoría
+                    </button>
+                  </div>
 
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Descripción</label>
-                <textarea
-                  name="description"
-                  value={formData.description || ""}
-                  onChange={handleChange}
-                  className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
-                  rows="4"
-                  placeholder="Descripción de la categoría"
-                ></textarea>
-              </div>
-              <div className="text-right">
-                <button
-                  type="submit"
-                  className="bg-green-700 text-white p-3 rounded-md shadow hover:bg-green-800 transition border-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <FaSave className="inline mr-1" /> Guardar Categoría
-                </button>
-              </div>
+                </div>
+              </form>
             </div>
-            </form>
-          </div>
-        </main>
+          </main>
+        </div>
+
       </div>
-    </div>
+    </>
   );
 };
 
