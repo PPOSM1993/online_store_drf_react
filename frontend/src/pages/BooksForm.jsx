@@ -14,11 +14,22 @@ const BooksForm = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();  // <-- para saber si estamos editando
+    const [author, setAuthor] = useState([]);
 
     const [formData, setFormData] = useState({
         name: "",
         description: "",
+        isbn: '',
+        author: ''
     });
+
+    useEffect(() => {
+    })
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
 
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
@@ -61,9 +72,43 @@ const BooksForm = () => {
                             <form action="" onSubmit={handleSubmit} className="space-y-4">
                                 <div>
                                     <label className="block text-sm font-medium">Nombre</label>
-                                    <input type="text" name="name" value={formData.full_name}
-                                        placeholder="Ingre Nombre Libro" //onChange={handleChange}
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={formData.name}
+                                        placeholder="Ingrese Nombre Libro"
+                                        onChange={handleChange}
                                         className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100" />
+                                </div>
+
+                                <div>
+                                    <input
+                                        type="text"
+                                        name="isbn"
+                                        value={formData.isbn}
+                                        onChange={handleChange}
+                                        maxLength={13}
+                                        pattern="\d{13}"
+                                        placeholder="Ingrese ISBN-13 (13 dígitos)"
+                                        required
+                                        className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
+                                    />
+
+                                </div>
+
+                                <div>
+                                    <div>
+                                        <select 
+                                            name="author" 
+                                            value={formData.author} 
+                                            onChange={handleChange}
+                                            className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100">
+                                            <option value="author">Seleccione Autor</option>
+                                            {author.map(r => (
+                                                <option key={r.pk} value={r.pk}>{r.fields.author}</option>
+                                            ))}
+                                        </select>
+                                    </div>
                                 </div>
                             </form>
                         </div>
