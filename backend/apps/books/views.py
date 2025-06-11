@@ -1,8 +1,9 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .models import Book
-from .serializers import BookSerializer
+from .models import Book, Author, Publisher
+from .serializers import *
+
 
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.select_related('author', 'publisher', 'category').all()

@@ -28,7 +28,7 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
     isbn = models.CharField(max_length=20, unique=True)
     purchase_price = models.DecimalField(max_digits=10, decimal_places=2)
-    vat_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    vat_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=19)
     final_price = models.DecimalField(max_digits=10, decimal_places=2, editable=False)
     discount_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     stock = models.PositiveIntegerField(default=0)
