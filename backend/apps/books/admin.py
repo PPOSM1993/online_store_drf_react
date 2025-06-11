@@ -1,29 +1,22 @@
 from django.contrib import admin
 
 from .models import Author, Publisher, Book
-from apps.category.models import Category
 from .models import Author
-
+from django.http import HttpResponse
+import csv
 # Register your models here.
 
 @admin.register(Publisher)
+
 class PublisherAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
 
-from django.http import HttpResponse
-import csv
-from .models import Author, Book, Editorial
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('name', 'bio')
     search_fields = ('name',)
     ordering = ('name',)
-@admin.register(Editorial)
-class EditorialAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    search_fields = ('name',)
-
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
@@ -35,13 +28,13 @@ class BookAdmin(admin.ModelAdmin):
     list_display = (
         'title', 'author', 'isbn', 'purchase_price',
         'vat_percentage', 'final_price', 'stock',
-        'editorial', 'language', 'publication_date', 'is_featured'
+        'publisher', 'language', 'publication_date', 'is_featured'
     )
-    list_filter = ('editorial', 'language')
+    list_filter = ('publisher', 'language')
     search_fields = ('title', 'isbn', 'author__name')
     ordering = ('title',)
     readonly_fields = ('final_price',)
-    autocomplete_fields = ('author', 'editorial')
+    autocomplete_fields = ('author', 'publisher')
     actions = ['export_books_to_csv']
 
     fieldsets = (
@@ -52,7 +45,7 @@ class BookAdmin(admin.ModelAdmin):
             'fields': ('purchase_price', 'vat_percentage', 'final_price', 'stock')
         }),
         ('Metadatos', {
-            'fields': ('category', 'editorial', 'language', 'publication_date', 'is_featured')
+            'fields': ('category', 'publisher', 'language', 'publication_date', 'is_featured')
         }),
     )
 
@@ -73,7 +66,7 @@ class BookAdmin(admin.ModelAdmin):
                 book.vat_percentage,
                 book.final_price,
                 book.stock,
-                book.editorial.name if book.editorial else ''
+                book.publisher.name if book.publisher else ''
             ])
             
             return response
