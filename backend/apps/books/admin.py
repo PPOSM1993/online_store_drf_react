@@ -1,12 +1,15 @@
 from django.contrib import admin
 from django.http import HttpResponse
 from .models import Author, Publisher, Book
-from apps.category.models import Category
 from .models import Author
+from django.http import HttpResponse
+import csv
+
 import csv
 
 # Register your models here.
 @admin.register(Publisher)
+
 class PublisherAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
@@ -16,6 +19,7 @@ class AuthorAdmin(admin.ModelAdmin):
     list_display = ('name', 'bio')
     search_fields = ('name',)
     ordering = ('name',)
+
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
 
