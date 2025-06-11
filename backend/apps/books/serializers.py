@@ -31,6 +31,12 @@ class BookSerializer(serializers.ModelSerializer):
         if value < 0:
             raise serializers.ValidationError("El stock no puede ser negativo.")
         return value
+    
+    def validate_description(self, value):
+        if value is not None and len(value) > 2500:
+            raise serializers.ValidationError("Description cannot exceed 2500 characters.")
+        return value.strip() if value else value
+
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
