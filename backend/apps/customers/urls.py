@@ -7,6 +7,4 @@ urlpatterns = [
     path('edit/<int:pk>/', CustomerDetail, name='customer-detail-or-update'),
     path('delete/<int:pk>/', DeleteCustomer, name='delete-customer'),
     path('search/', SearchCustomers, name='search-customers'),
-
-
 ]
