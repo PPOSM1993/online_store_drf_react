@@ -36,7 +36,7 @@ class BookSerializer(serializers.ModelSerializer):
         if value is not None and len(value) > 2500:
             raise serializers.ValidationError("Description cannot exceed 2500 characters.")
         return value.strip() if value else value
-   
+
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
