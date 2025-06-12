@@ -15,6 +15,14 @@ class AuthorListAPIView(APIView):
         serializer = AuthorSerializer(authors, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+class PublisherAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request):
+        publishers = Publisher.objects.all()
+        serializer = PublisherSerializer(publishers, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.select_related('author', 'publisher', 'category').all()
     serializer_class = BookSerializer

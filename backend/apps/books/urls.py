@@ -1,5 +1,5 @@
 from rest_framework.routers import DefaultRouter
-from .views import BookViewSet, AuthorListAPIView
+from .views import BookViewSet, AuthorListAPIView, PublisherAPIView
 from django.urls import path
 
 
@@ -9,4 +9,5 @@ urlpatterns = router.urls
 
 urlpatterns = [
     path('author/', AuthorListAPIView.as_view(), name='author_list'),
+    path('publisher/', PublisherAPIView.as_view(), name='publisher_list'),
 ]

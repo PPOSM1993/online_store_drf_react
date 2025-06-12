@@ -33,7 +33,7 @@ class BookSerializer(serializers.ModelSerializer):
         return value
     
     def validate_description(self, value):
-        if value is not None and len(value) > 2500:
+        if value is not None and len(value) > 6000:
             raise serializers.ValidationError("Description cannot exceed 2500 characters.")
         return value.strip() if value else value
 
