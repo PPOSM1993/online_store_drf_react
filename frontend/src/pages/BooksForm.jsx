@@ -29,6 +29,19 @@ const BooksForm = () => {
     useEffect(() => {
         const token = localStorage.getItem("access_token");
 
+        author: ''
+    });
+
+    useEffect(() => {
+    })
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
         axios
             .get("http://localhost:8000/api/books/author/", {
                 headers: {
@@ -75,6 +88,8 @@ const BooksForm = () => {
                                 className="space-y-4">
                                 <div>
                                     <label className="block text-sm font-medium">Libro</label>
+
+                                    <label className="block text-sm font-medium">Nombre</label>
                                     <input
                                         type="text"
                                         name="name"
@@ -85,7 +100,8 @@ const BooksForm = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium">ISBN</label>
+                                   <label className="block text-sm font-medium">ISBN</label>
+
                                     <input
                                         type="text"
                                         name="isbn"
@@ -151,6 +167,23 @@ const BooksForm = () => {
                                         rows="4"
                                         placeholder="Descripción del Libro"
                                     ></textarea>
+
+
+                                </div>
+
+                                <div>
+                                    <div>
+                                        <select 
+                                            name="author" 
+                                            value={formData.author} 
+                                            onChange={handleChange}
+                                            className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100">
+                                            <option value="author">Seleccione Autor</option>
+                                            {author.map(r => (
+                                                <option key={r.pk} value={r.pk}>{r.fields.author}</option>
+                                            ))}
+                                        </select>
+                                    </div>
                                 </div>
                             </form>
                         </div>
