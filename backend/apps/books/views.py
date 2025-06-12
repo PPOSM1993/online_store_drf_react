@@ -7,6 +7,7 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from rest_framework.decorators import api_view, permission_classes
+from django.db.models import Q
 class AuthorListAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     
@@ -53,15 +54,13 @@ class BookViewSet(viewsets.ModelViewSet):
 def SearchBooks(request):
     query = request.GET.get('q', '')
     if query:
-        book = Book.objects.filter(
-            title__icontains=query
-        ) | Book.objects.filter(
-            author__icontains=query  
-        ) | Book.objects.filter(
-            publisher__icontains=query
-        )
+        books = Book.objects.filter(
+            Q(title__icontains=query) |
+            Q(author__name__icontains=query) |
+            Q(publisher__name__icontains=query)  # Asumiendo que publisher también es una FK
+        ).distinct()
     else:
-        book = Book.objects.all()
+        books = Book.objects.all()
 
-    serializer = BookSerializer(book, many=True)
+    serializer = BookSerializer(books, many=True)
     return Response(serializer.data)
