@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Sidebar, Header, CategoryTable } from "../index.js";
+import { Sidebar, Header, BooksTable } from "../index.js";
 
 const BooksList = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -23,7 +23,7 @@ const BooksList = () => {
                 <Header />
                 <main className="p-4 sm:p-6">
                     <h1 className="text-xl sm:text-2xl font-bold mb-4 text-gray-800">Libros</h1>
-                    xD
+                    <BooksTable />
                 </main>
             </div>
         </div>
