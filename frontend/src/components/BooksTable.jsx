@@ -14,7 +14,7 @@ const BooksTable = () => {
 
     const fetchBook = async (q = "") => {
         const token = localStorage.getItem("access_token");
-        const res = await axios.get(`http://localhost:8000/api/book/search/?q=${q}`, {
+        const res = await axios.get(`http://localhost:8000/api/books/search/?q=${q}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -39,11 +39,12 @@ const BooksTable = () => {
 
         {
             name: "Libros",
-            selector: row => row.name,
+            selector: row => row.title,
             sortable: true,
         },
         {
-            name: "",
+            name: "Autor",
+            selector: row => row.author,
             sortable: true,
         },
         {
