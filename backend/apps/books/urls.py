@@ -8,5 +8,5 @@ router.register(r'', BookViewSet, basename='books')
 urlpatterns = router.urls + [
     path('author/', AuthorListAPIView.as_view(), name='author_list'),
     path('publisher/', PublisherAPIView.as_view(), name='publisher_list'),
-    path('search/', SearchBooks, name='search-customers'),
+    path('search/', SearchBooks, name='search-books'),
 ]
