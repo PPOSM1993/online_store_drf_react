@@ -61,7 +61,7 @@ def SearchBooks(request):
             publisher__icontains=query
         )
     else:
-        customers = Book.objects.all()
+        book = Book.objects.all()
 
     serializer = BookSerializer(book, many=True)
     return Response(serializer.data)
