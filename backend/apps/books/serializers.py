@@ -41,12 +41,17 @@ class BookSerializer(serializers.ModelSerializer):
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'bio']
         
     def validate_name(self, value):
         if not value.strip():
             raise serializers.ValidationError("El nombre del autor no puede estar vacío.")
         return value.strip()
+    
+    def validate_bio(self, value):
+        if value is not None and len(value) > 2500:
+            raise serializers.ValidationError("Description cannot exceed 2500 characters.")
+        return value.strip() if value else value
 
 
 class PublisherSerializer(serializers.ModelSerializer):
