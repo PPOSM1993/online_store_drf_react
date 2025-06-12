@@ -1,5 +1,6 @@
 export { default as App } from './App';
 export { default as BooksList } from './components/BooksList';
+export { default as BooksTable } from './components/BooksTable';
 export { default as CategoryList } from './components/CategoryList';
 export { default as CategoryTable } from './components/CategoryTable';
 export { default as CustomerList } from './components/CustomerList';

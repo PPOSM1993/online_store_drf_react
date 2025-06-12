@@ -109,7 +109,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           icon={FaBoxOpen}
           label="Inventario"
           submenu={[
-            { label: "Productos", href: "#" },
+            { label: "Productos", href: "/books" },
             { label: "Categorías", href: "/category" },
           ]}
           open={openSubmenu}
