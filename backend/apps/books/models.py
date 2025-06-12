@@ -10,7 +10,7 @@ def validate_isbn(value):
 
 class Author(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    bio = models.TextField(blank=True, null=True)
+    bio = models.TextField(blank=True, null=True, max_length=6000)
 
     def __str__(self):
         return self.name
@@ -40,7 +40,7 @@ class Book(models.Model):
     publication_date = models.DateField()
     cover_image = models.ImageField(upload_to='book_covers/', blank=True, null=True)
     is_featured = models.BooleanField(default=False)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True, max_length=6000)
 
 
     def save(self, *args, **kwargs):
