@@ -1,12 +1,12 @@
-from rest_framework import viewsets, status
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from .models import Book, Author, Publisher
-from .serializers import *
 from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework import status, permissions
-
-
+from .models import Book, Author, Publisher
+from .serializers import BookSerializer, AuthorSerializer, PublisherSerializer
+from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
+from rest_framework.decorators import api_view, permission_classes
 class AuthorListAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     
@@ -47,3 +47,21 @@ class BookViewSet(viewsets.ModelViewSet):
             return Response({"purchase_price": "El precio de compra no puede ser negativo."}, status=400)
 
         return super().update(request, *args, **kwargs)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def SearchBooks(request):
+    query = request.GET.get('q', '')
+    if query:
+        book = Book.objects.filter(
+            title__icontains=query
+        ) | Book.objects.filter(
+            author__icontains=query  
+        ) | Book.objects.filter(
+            publisher__icontains=query
+        )
+    else:
+        customers = Book.objects.all()
+
+    serializer = BookSerializer(book, many=True)
+    return Response(serializer.data)
