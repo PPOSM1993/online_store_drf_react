@@ -16,15 +16,43 @@ const BooksForm = () => {
     const navigate = useNavigate();
     const { id } = useParams();  // <-- para saber si estamos editando
     const [author, setAuthor] = useState([]);
+    const [category, setCategory] = useState([]);
+    // -const [publisher, setPublicher] = useState([]);
 
     const [formData, setFormData] = useState({
-        name: "",
+        title: "",
         description: "",
         isbn: '',
         author: null,
         purchase_price: 19, // +"%"
-        final_price: ''
+        final_price: '',
+        discount_percentage: '',
+        stock: '',
+        category: ''
     });
+
+
+    useEffect(() => {
+        const token = localStorage.getItem("access_token");
+
+        axios
+            .get("http://localhost:8000/api/category/", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                console.log("Autores:", res.data);
+
+                const options = res.data.map((author) => ({
+                    value: author.id,   // o author.pk si estás usando ese nombre
+                    label: author.name, // o author.nombre_completo, según tu modelo
+                }));
+
+                setCategory(options);
+            })
+            .catch((err) => console.error(err));
+    }, []);
 
 
     useEffect(() => {
@@ -78,8 +106,8 @@ const BooksForm = () => {
                                     <label className="block text-sm font-medium">Nombre</label>
                                     <input
                                         type="text"
-                                        name="name"
-                                        value={formData.name}
+                                        name="title"
+                                        value={formData.title}
                                         placeholder="Ingrese Nombre Libro"
                                         onChange={handleChange}
                                         className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100" />
@@ -116,6 +144,24 @@ const BooksForm = () => {
                                     />
                                 </div>
 
+
+
+
+                                <div>
+                                    <label className="block text-sm font-medium">Categoria</label>
+                                    <Select
+                                        options={category}
+                                        onChange={(selectedOption) =>
+                                            setFormData((prev) => ({
+                                                ...prev,
+                                                author: selectedOption?.value,
+                                            }))
+                                        }
+                                        placeholder="Seleccione Categoria"
+                                        isClearable
+                                    />
+                                </div>
+
                                 <div>
                                     <label className="block text-sm font-medium">IVA</label>
                                     <input
@@ -128,7 +174,19 @@ const BooksForm = () => {
                                         className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                     />
                                 </div>
-
+                                <div>
+                                    <label className="block text-sm font-medium">Descuento</label>
+                                    <input
+                                        type="number"
+                                        name="discount_percentage"
+                                        value={formData.discount_percentage}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="Porcentaje de Descuento"
+                                        // disabled
+                                        className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
+                                    />
+                                </div>
                                 <div>
                                     <label className="block text-sm font-medium">Precio Final</label>
                                     <input
@@ -144,6 +202,19 @@ const BooksForm = () => {
                                 </div>
 
                                 <div>
+                                    <label className="block text-sm font-medium">Stock</label>
+                                    <input
+                                        type="number"
+                                        name="stock"
+                                        value={formData.stock}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="Stock"
+                                        // disabled
+                                        className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
+                                    />
+                                </div>
+                                <div>
                                     <label className="block text-sm font-medium text-gray-700">Descripción</label>
                                     <textarea
                                         name="description"
@@ -153,9 +224,15 @@ const BooksForm = () => {
                                         rows="4"
                                         placeholder="Descripción del Libro"
                                     ></textarea>
-
-
                                 </div>
+
+                                <div className="mt-4 text-right">
+                                    <button type="submit" className="bg-green-700 text-white p-3 rounded hover:bg-green-800">
+                                        <FaSave className="inline mr-1" />
+                                        {id ? "Actualizar Libro" : "Crear Libro"}
+                                    </button>
+                                </div>
+
                             </form>
                         </div>
                     </main>
