@@ -1,5 +1,5 @@
 from rest_framework.routers import DefaultRouter
-from .views import BookViewSet, AuthorListAPIView, PublisherAPIView
+from .views import BookViewSet, AuthorListAPIView, PublisherAPIView, SearchBooks
 from django.urls import path
 
 
