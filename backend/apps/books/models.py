@@ -2,6 +2,7 @@ from django.db import models
 from stdnum import isbn
 from django.core.exceptions import ValidationError
 from apps.category.models import Category  # Usa tu modelo Category existente
+from isbn_field import ISBNField
 
 
 def validate_isbn(value):
@@ -26,7 +27,7 @@ class Publisher(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
-    isbn = models.CharField(max_length=20, unique=True)
+    isbn = ISBNField(unique=True)
     purchase_price = models.DecimalField(max_digits=10, decimal_places=2)
     vat_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=19)
     final_price = models.DecimalField(max_digits=10, decimal_places=2, editable=False)
