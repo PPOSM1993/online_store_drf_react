@@ -33,7 +33,7 @@ const BooksTable = () => {
         return () => clearTimeout(delayDebounce);
     }, [filterText]);
 
-    
+
 
     const columns = [
 
@@ -42,13 +42,20 @@ const BooksTable = () => {
             selector: row => row.title,
             sortable: true,
         },
+
         {
             name: "Autor",
+
+            selector: row => row.author.name,
+
             selector: row => row.author,
+
             sortable: true,
         },
+
         {
-            name: "",
+            name: "ISBN",
+            selector: row => row.isbn,
             sortable: true,
         },
         {
