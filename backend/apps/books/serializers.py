@@ -2,7 +2,36 @@ from rest_framework import serializers
 from stdnum import isbn
 from .models import Book, Author, Publisher
 
+
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Author
+        fields = ['id', 'name', 'bio']
+        
+    def validate_name(self, value):
+        if not value.strip():
+            raise serializers.ValidationError("El nombre del autor no puede estar vacío.")
+        return value.strip()
+    
+    def validate_bio(self, value):
+        if value is not None and len(value) > 2500:
+            raise serializers.ValidationError("Description cannot exceed 2500 characters.")
+        return value.strip() if value else value
+
+
+class PublisherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Publisher
+        fields = ['id', 'name']
+
+    def validate_name(self, value):
+        if not value.strip():
+            raise serializers.ValidationError("El nombre de la editorial no puede estar vacío.")
+        return value.strip()
+
 class BookSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer(read_only=True)  # <-- importante
+    publisher = PublisherSerializer(read_only=True)  # si aplica
     class Meta:
         model = Book
         fields = '__all__'  # O puedes listar los campos explícitamente si prefieres
@@ -36,30 +65,3 @@ class BookSerializer(serializers.ModelSerializer):
         if value is not None and len(value) > 6000:
             raise serializers.ValidationError("Description cannot exceed 2500 characters.")
         return value.strip() if value else value
-
-
-class AuthorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Author
-        fields = ['id', 'name', 'bio']
-        
-    def validate_name(self, value):
-        if not value.strip():
-            raise serializers.ValidationError("El nombre del autor no puede estar vacío.")
-        return value.strip()
-    
-    def validate_bio(self, value):
-        if value is not None and len(value) > 2500:
-            raise serializers.ValidationError("Description cannot exceed 2500 characters.")
-        return value.strip() if value else value
-
-
-class PublisherSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Publisher
-        fields = ['id', 'name']
-
-    def validate_name(self, value):
-        if not value.strip():
-            raise serializers.ValidationError("El nombre de la editorial no puede estar vacío.")
-        return value.strip()
