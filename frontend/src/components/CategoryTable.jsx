@@ -53,11 +53,11 @@ const CategoryTable = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                Swal.fire("Eliminado", "Cliente eliminado correctamente.", "success");
+                Swal.fire("Eliminado", "Categoria eliminada correctamente.", "success");
                 fetchCategory();
             } catch (error) {
                 console.error("Error al eliminar:", error);
-                Swal.fire("Error", "No se pudo eliminar el cliente.", "error");
+                Swal.fire("Error", "No se pudo eliminar la categoria.", "error");
             }
         }
     };
@@ -135,7 +135,7 @@ const CategoryTable = () => {
                 <Link to="/category/create">
                     <button className="bg-green-700 text-white p-3 rounded-md shadow hover:bg-green-800 transition flex items-center space-x-2 cursor-pointer">
                         <FaPlus />
-                        <span>Nuevo Cliente</span>
+                        <span>Nueva Categoria</span>
                     </button>
                 </Link>
             </div>

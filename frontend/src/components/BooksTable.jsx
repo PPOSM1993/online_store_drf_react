@@ -34,6 +34,38 @@ const BooksTable = () => {
     }, [filterText]);
 
 
+    const handleDelete = async (id) => {
+        const confirm = await Swal.fire({
+            title: "¿Estás seguro?",
+            text: "Este cliente será eliminado permanentemente.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+        });
+
+        if (confirm.isConfirmed) {
+            try {
+                const token = localStorage.getItem("access_token");
+                await axios.delete(`http://localhost:8000/api/books/delete/${id}/`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                Swal.fire("Eliminado", "Libro eliminado correctamente.", "success");
+                fetchBook();
+            } catch (error) {
+                console.error("Error al eliminar:", error);
+                Swal.fire("Error", "No se pudo eliminar el libro.", "error");
+            }
+        }
+    };
+
+    const handleEdit = (id) => {
+        navigate(`/books/edit/${id}`);
+    };
 
     const columns = [
 
@@ -59,12 +91,14 @@ const BooksTable = () => {
             cell: row => (
                 <div className="flex items-center space-x-2 justify-end">
                     <button
+                        onClick={() => handleEdit(row.id)}
                         className="bg-yellow-500 text-black px-3 py-3 rounded text-xs sm:text-sm cursor-pointer hover:bg-yellow-600 transition"
                         title="Editar"
                     >
                         <FaPen />
                     </button>
                     <button
+                        onClick={() => handleDelete(row.id)}
                         className="bg-red-500 text-white px-3 py-3 rounded text-xs sm:text-sm cursor-pointer hover:bg-red-600 transition"
                         title="Eliminar"
                     >
