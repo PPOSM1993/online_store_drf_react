@@ -6,7 +6,7 @@ from .models import Book, Author, Publisher
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ['id', 'name', 'bio']
+        fields = ['id', 'name']
         
     def validate_name(self, value):
         if not value.strip():
@@ -30,11 +30,19 @@ class PublisherSerializer(serializers.ModelSerializer):
         return value.strip()
 
 class BookSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer(read_only=True)  # <-- importante
-    publisher = PublisherSerializer(read_only=True)  # si aplica
+    #author = AuthorSerializer(read_only=True)  # <-- importante
+    #publisher = PublisherSerializer(read_only=True)  # si aplica
+    author = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all())
+    publisher = serializers.PrimaryKeyRelatedField(queryset=Publisher.objects.all())
     class Meta:
         model = Book
         fields = '__all__'  # O puedes listar los campos explícitamente si prefieres
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep['author'] = AuthorSerializer(instance.author).data
+        rep['publisher'] = PublisherSerializer(instance.publisher).data
+        return rep
 
     def validate_isbn(self, value):
         """Validación con la librería python-stdnum"""
