@@ -109,8 +109,8 @@ const CategoryForm = () => {
                   <div className="text-right">
                     <button
                       type="submit"
-                      className="bg-green-700 text-white p-3 rounded-md shadow hover:bg-green-800 transition border-none focus:outline-none focus:ring-2 focus:ring-blue-500">
-                      <FaSave className="inline mr-1" /> Guardar Categoría
+                      className="bg-green-700 text-white p-3 rounded-md shadow hover:bg-green-800 transition border-none focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
+                      <FaSave className="inline mr-1" /> Guardar Libro
                     </button>
                   </div>
 

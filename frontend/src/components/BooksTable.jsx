@@ -45,11 +45,7 @@ const BooksTable = () => {
 
         {
             name: "Autor",
-
             selector: row => row.author.name,
-
-            selector: row => row.author,
-
             sortable: true,
         },
 

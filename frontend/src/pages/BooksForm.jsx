@@ -16,26 +16,37 @@ const BooksForm = () => {
     const [author, setAuthor] = useState([]);
     const [category, setCategory] = useState([]);
     const [publisher, setPublisher] = useState([]);
+    const [coverImage, setCoverImage] = useState(null);
+
 
     const [formData, setFormData] = useState({
         title: "",
-        description: "",
-        isbn: '',
-        author: null,
-        purchase_price: 0, // +"%"
-        final_price: 0,
-        category: '',
-        publisher: '',
+        author: '',
+        isbn: "",
+        purchase_price: "",
         vat_percentage: 19,
+        final_price: "",
+        discount_percentage: "",
         stock: 0,
-        discount_percentage: 0,
-        language: '',
-        pages: ''
+        category: "",
+        publisher: "",
+        language: "",
+        pages: 0,
+        is_featured: false,
+        publication_date: '',
+        cover_image: ''
+
     });
 
 
     useEffect(() => {
         const token = localStorage.getItem("access_token");
+        const purchasePrice = parseFloat(formData.purchase_price) || 0;
+        const vatPercentage = parseFloat(formData.vat_percentage) || 0;
+
+        const final_price = (purchasePrice + (purchasePrice * (vatPercentage / 100))).toFixed(2);
+
+        setFormData(prev => ({ ...prev, final_price }));
 
         axios
             .get("http://localhost:8000/api/books/author/", {
@@ -54,7 +65,7 @@ const BooksForm = () => {
                 setAuthor(options);
             })
             .catch((err) => console.error(err));
-    }, []);
+    }, [formData.purchase_price, formData.vat_percentage]);
 
 
     useEffect(() => {
@@ -109,6 +120,36 @@ const BooksForm = () => {
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const token = localStorage.getItem("access_token");
+        const formPayload = new FormData();
+
+        for (const key in formData) {
+            formPayload.append(key, formData[key]);
+        }
+
+        if (coverImage) {
+            formPayload.append("cover_image", coverImage);
+        }
+
+        try {
+            await axios.post("http://localhost:8000/api/books/create/", formPayload, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            Swal.fire("Éxito", "Libro registrado correctamente", "success");
+            navigate("/books");
+        } catch (error) {
+            console.error(error);
+            Swal.fire("Error", "Hubo un problema al guardar el libro", "error");
+        }
+    };
+
     return (
         <>
             <div className="min-h-screen bg-blue-100 flex flex-col md:flex-row">
@@ -121,9 +162,7 @@ const BooksForm = () => {
                     <main className="p-4 sm:p-6">
                         <h1 className="text-2xl font-bold text-gray-800 mb-4">Registrar Libro</h1>
                         <div className="bg-white p-6 rounded-xl shadow-md">
-                            <form action=""
-                                // onSubmit={handleSubmit} 
-                                className="space-y-4">
+                            <form action="" onSubmit={handleSubmit} className="space-y-4">
                                 <div>
                                     <label className="block text-sm font-medium">Libro</label>
                                     <input
@@ -132,6 +171,7 @@ const BooksForm = () => {
                                         value={formData.title}
                                         placeholder="Ingrese Nombre Libro"
                                         onChange={handleChange}
+                                        required
                                         className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100" />
                                 </div>
 
@@ -163,6 +203,7 @@ const BooksForm = () => {
                                         }
                                         placeholder="Seleccione Categoria"
                                         isClearable
+                                        required
                                     />
                                 </div>
 
@@ -178,6 +219,7 @@ const BooksForm = () => {
                                         }
                                         placeholder="Seleccione un autor"
                                         isClearable
+                                        required
                                     />
                                 </div>
                                 <div>
@@ -192,6 +234,7 @@ const BooksForm = () => {
                                         }
                                         placeholder="Seleccione Editorial"
                                         isClearable
+                                        required
                                     />
                                 </div>
                                 <div>
@@ -289,6 +332,47 @@ const BooksForm = () => {
                                     />
                                 </div>
 
+                                <div className="flex items-center space-x-2">
+                                    <input
+                                        type="checkbox"
+                                        name="is_featured"
+                                        checked={formData.is_featured}
+                                        onChange={(e) =>
+                                            setFormData((prev) => ({
+                                                ...prev,
+                                                is_featured: e.target.checked,
+                                            }))
+                                        }
+                                        className="form-checkbox h-5 w-5 text-blue-600"
+                                    />
+                                    <label className="text-sm font-medium text-gray-700">
+                                        Libro destacado
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium">Fecha de Publicación</label>
+                                    <input
+                                        type="date"
+                                        name="publication_date"
+                                        value={formData.publication_date || ""}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium">Imagen de Portada</label>
+                                    <input
+                                        type="file"
+                                        name="cover_image"
+                                        accept="image/*"
+                                        onChange={(e) => setCoverImage(e.target.files[0])}
+                                        className="w-full mt-1"
+                                    />
+                                </div>
+
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700">Descripción</label>
                                     <textarea
@@ -300,14 +384,14 @@ const BooksForm = () => {
                                         placeholder="Descripción del Libro"
                                     ></textarea>
                                 </div>
-
+                                <div className="mt-4 text-right">
+                                    <button type="submit" className="bg-green-700 text-white p-3 rounded hover:bg-green-800 cursor-pointer">
+                                        <FaSave className="inline mr-1" />
+                                        Crear Libro
+                                    </button>
+                                </div>
                             </form>
-                            <div className="mt-4 text-right">
-                                <button type="submit" className="bg-green-700 text-white p-3 rounded hover:bg-green-800">
-                                    <FaSave className="inline mr-1" />
-                                    {id ? "Actualizar Libro" : "Crear Libro"}
-                                </button>
-                            </div>
+
                         </div>
                     </main>
                 </div>
