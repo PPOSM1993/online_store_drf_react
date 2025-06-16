@@ -40,7 +40,6 @@ class Book(models.Model):
     is_featured = models.BooleanField(default=False)
     publication_date = models.DateField()
     cover_image = models.ImageField(upload_to='book_covers/', blank=True, null=True)
-    is_featured = models.BooleanField(default=False)
     description = models.TextField(null=True, blank=True, max_length=6000)
 
 
