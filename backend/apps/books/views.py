@@ -24,7 +24,9 @@ class PublisherAPIView(APIView):
         serializer = PublisherSerializer(publishers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class BookViewSet(viewsets.ModelViewSet):
+
+
+class CreateBookAPIView(CreateAPIView):
     queryset = Book.objects.select_related('author', 'publisher', 'category').all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
