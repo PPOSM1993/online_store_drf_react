@@ -1,7 +1,7 @@
 import React from "react";
 import { Sidebar, Header } from "../index";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; //useParams
 import Swal from "sweetalert2";
 import { FaSave } from "react-icons/fa";
 import { useState, useEffect } from "react";
@@ -12,7 +12,7 @@ const BooksForm = () => {
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const navigate = useNavigate();
-    const { id } = useParams();  // <-- para saber si estamos editando
+    //const { id } = useParams();  // <-- para saber si estamos editando
     const [author, setAuthor] = useState([]);
     const [category, setCategory] = useState([]);
     const [publisher, setPublisher] = useState([]);
@@ -149,6 +149,7 @@ const BooksForm = () => {
             Swal.fire("Error", "Hubo un problema al guardar el libro", "error");
         }
     };
+
 
     return (
         <>

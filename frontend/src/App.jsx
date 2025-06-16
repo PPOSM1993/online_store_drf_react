@@ -38,6 +38,7 @@ function App() {
 
         <Route path="/books" element={isAuthenticated() ? <BooksList /> : <Navigate to="/login" />} />
         <Route path="/books/create" element={isAuthenticated() ? <BooksForm /> : <Navigate to="/login" />} />
+        <Route path="/books/edit/:id" element={isAuthenticated() ? <BooksForm /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
   )
