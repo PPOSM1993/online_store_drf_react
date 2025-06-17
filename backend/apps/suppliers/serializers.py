@@ -48,7 +48,9 @@ class SupplierSerializer(serializers.ModelSerializer):
             'payment_terms',
             'supply_categories',
             'region',
+            'region_id',
             'city',
+            'city_id',
             'created_at',
             'updated_at',
         ]
