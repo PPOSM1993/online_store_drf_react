@@ -153,7 +153,7 @@ const CustomerForm = () => {
                                     onChange={handleChange}
                                     disabled={!!id}
                                     className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
-
+                                />
                                 <input 
                                     type="text" 
                                     name="tax_id" 
@@ -240,7 +240,7 @@ const CustomerForm = () => {
                             </div>
 
                             <div className="mt-4 text-right">
-                                <button type="submit" className="bg-green-700 text-white p-3 rounded hover:bg-green-800">
+                                <button type="submit" className="bg-green-700 text-white p-3 rounded hover:bg-green-800 cursor-poisenter">
                                     <FaSave className="inline mr-1" />
                                     {id ? "Actualizar Cliente" : "Crear Cliente"}
                                 </button>
