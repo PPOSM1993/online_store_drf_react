@@ -6,7 +6,7 @@ import { FaSave } from "react-icons/fa";
 import Swal from "sweetalert2";
 import Select from "react-select";
 
-const CustomerForm = () => {
+const SuppliersFrom = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();  // <-- para saber si estamos editando
@@ -196,9 +196,6 @@ const CustomerForm = () => {
                       </option>
                     ))}
                 </select>
-
-
-
               </div>
 
               <div>
@@ -278,4 +275,4 @@ const CustomerForm = () => {
   );
 };
 
-export default CustomerForm;
+export default SuppliersFrom;
