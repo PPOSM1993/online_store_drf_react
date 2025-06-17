@@ -65,7 +65,7 @@ class Customers(models.Model):
     )
 
     # Contacto
-    email = models.EmailField("Email", unique=True)
+    email = models.EmailField(unique=True)
     phone = models.CharField("Phone", validators=[phone_regex], max_length=17, blank=True, unique=True)
     address = models.CharField("Address", max_length=255, blank=True, null=True)
 
@@ -74,6 +74,7 @@ class Customers(models.Model):
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
     # Campo de fecha de creación correctamente definido
     created_at = models.DateTimeField("Created at", default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         if self.customer_type == 'company' and self.company:
