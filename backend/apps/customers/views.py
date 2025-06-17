@@ -45,7 +45,11 @@ def SearchCustomers(request):
             full_name__icontains=query
         ) | Customers.objects.filter(
             company__icontains=query  
-        ) 
+        ) | Customers.objects.filter(
+            tax_id__icontains=query
+        ) | Customers.objects.filter(
+            phone__icontains=query
+        )
     else:
         customers = Customers.objects.all()
 
