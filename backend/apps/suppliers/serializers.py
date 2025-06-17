@@ -57,17 +57,34 @@ class SupplierSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("El nombre del proveedor no puede estar vacío.")
         return value
 
-    def validate_tax_id(self, value):
-        if not value.strip():
-            raise serializers.ValidationError("El RUT no puede estar vacío.")
-        return value
-
     def validate_email(self, value):
-        if not value.strip():
-            raise serializers.ValidationError("El correo electrónico es obligatorio.")
-        return value.lower()
-
-    def validate_phone(self, value):
-        if not value.strip():
-            raise serializers.ValidationError("El teléfono es obligatorio.")
+            # Si estamos editando (PUT/PATCH)
+        if self.instance:
+            # Excluir al cliente actual en la verificación de email único
+            if Supplier.objects.exclude(pk=self.instance.pk).filter(email=value).exists():
+                    raise serializers.ValidationError("Este correo ya existe.")
+        else:
+            # Si es creación (POST)
+            if Supplier.objects.filter(email=value).exists():
+                raise serializers.ValidationError("Este correo ya existe.")
+            return value
+        
+    def validate_tax_id(self, value):
+        if value:
+            if self.instance:
+                if Supplier.objects.exclude(pk=self.instance.pk).filter(tax_id=value).exists():
+                    raise serializers.ValidationError("Este RUT ya está registrado.")
+            else:
+                if Supplier.objects.filter(tax_id=value).exists():
+                    raise serializers.ValidationError("Este RUT ya está registrado.")
+        return value
+        
+    def validate_tax_id(self, value):
+        if value:
+            if self.instance:
+                if Supplier.objects.exclude(pk=self.instance.pk).filter(phone=value).exists():
+                    raise serializers.ValidationError("Este Telefono ya está registrado.")
+            else:
+                if Supplier.objects.filter(phone=value).exists():
+                     raise serializers.ValidationError("Este Telefono ya está registrado.")
         return value
