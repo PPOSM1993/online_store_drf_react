@@ -10,6 +10,8 @@ export { default as Header } from './components/Header';
 export { default as LoginForm } from './components/LoginForm';
 export { default as RegisterForm } from './components/RegisterForm';
 export { default as Sidebar } from './components/Sidebar';
+export { default as SuppliersList } from './components/SuppliersList';
+export { default as SuppliersTable } from './components/SuppliersTable';
 export { default as UserDropdown } from './components/UserDropdown';
 export { default as Home } from './home/Home';
 export * from './main';

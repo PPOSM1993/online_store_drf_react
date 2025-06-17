@@ -12,7 +12,6 @@ const CustomerForm = () => {
   const { id } = useParams();  // <-- para saber si estamos editando
   const [regions, setRegions] = useState([]);
   const [cities, setCities] = useState([]);
-  const [category, setCategory] = useState([]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -27,7 +26,6 @@ const CustomerForm = () => {
     payment_terms: '',
     region: '',
     city: '',
-    category: ""
   })
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
@@ -61,28 +59,6 @@ const CustomerForm = () => {
     }
   }, [id]);
 
-  useEffect(() => {
-    const token = localStorage.getItem("access_token");
-
-    axios
-      .get("http://localhost:8000/api/category/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log("Categorias:", res.data);
-
-        const options = res.data.map((category) => ({
-          value: category.id,   // o author.pk si estás usando ese nombre
-          label: category.name, // o author.nombre_completo, según tu modelo
-        }));
-
-        setCategory(options);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -107,7 +83,7 @@ const CustomerForm = () => {
         title: "Éxito",
         text: `Proveedor ${id ? "actualizado" : "registrado"} correctamente.`,
         icon: "success",
-      }).then(() => navigate("/customers"));
+      }).then(() => navigate("/suppliers"));
 
     } catch (error) {
       const errorMsg = error.response?.data?.email?.[0] || "Error al guardar.";
@@ -187,26 +163,40 @@ const CustomerForm = () => {
               {/* Región y ciudad */}
               <div>
                 <label className="block text-sm font-medium">Región</label>
-                <select name="region" value={formData.region} onChange={handleChange}
-                  className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100">
+                <select
+                  name="region"
+                  value={formData.region ?? ""}
+                  onChange={handleChange}
+                  className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
+                >
                   <option value="">Seleccione una región</option>
-                  {regions.map(r => (
-                    <option key={r.pk} value={r.pk}>{r.fields.name}</option>
+                  {regions.map((r) => (
+                    <option key={r.pk} value={r.pk}>
+                      {r.fields.name}
+                    </option>
                   ))}
                 </select>
+
               </div>
 
               <div>
                 <label className="block text-sm font-medium">Ciudad</label>
-                <select name="city" value={formData.city} onChange={handleChange}
-                  className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100">
+                <select
+                  name="city"
+                  value={formData.city || ""}
+                  onChange={handleChange}
+                  className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
+                >
                   <option value="">Seleccione una ciudad</option>
                   {cities
                     .filter(c => c.fields.region === parseInt(formData.region))
                     .map(c => (
-                      <option key={c.pk} value={c.pk}>{c.fields.name}</option>
+                      <option key={c.pk} value={c.pk}>
+                        {c.fields.name}
+                      </option>
                     ))}
                 </select>
+
 
 
               </div>
@@ -240,23 +230,6 @@ const CustomerForm = () => {
                   placeholder="Notas"
                   value={formData.notes}
                   onChange={handleChange}
-                  className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium">Categoria</label>
-                <Select
-                  options={category}
-                  onChange={(selectedOption) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      category: selectedOption?.value,
-                    }))
-                  }
-                  placeholder="Seleccione Categoria"
-                  isClearable
-                  required
                   className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                 />
               </div>
