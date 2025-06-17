@@ -1,0 +1,114 @@
+[
+  {
+    "model": "suppliers.region",
+    "pk": 15,
+    "fields": {
+      "name": "Arica y Parinacota"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 1,
+    "fields": {
+      "name": "Tarapacá"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 2,
+    "fields": {
+      "name": "Antofagasta"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 3,
+    "fields": {
+      "name": "Atacama"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 4,
+    "fields": {
+      "name": "Coquimbo"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 5,
+    "fields": {
+      "name": "Valparaíso"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 13,
+    "fields": {
+      "name": "Metropolitana de Santiago"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 6,
+    "fields": {
+      "name": "Libertador General Bernardo O'Higgins"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 7,
+    "fields": {
+      "name": "Maule"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 16,
+    "fields": {
+      "name": "Ñuble"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 8,
+    "fields": {
+      "name": "Biobío"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 9,
+    "fields": {
+      "name": "La Araucanía"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 14,
+    "fields": {
+      "name": "Los Ríos"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 10,
+    "fields": {
+      "name": "Los Lagos"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 11,
+    "fields": {
+      "name": "Aysén del General Carlos Ibáñez del Campo"
+    }
+  },
+  {
+    "model": "suppliers.region",
+    "pk": 12,
+    "fields": {
+      "name": "Magallanes y de la Antártica Chilena"
+    }
+  }
+]
