@@ -19,4 +19,5 @@ export { default as CustomerForm } from './pages/CustomerForm';
 export { default as Dashboard } from './pages/Dashboard';
 export { default as Login } from './pages/Login';
 export { default as Register } from './pages/Register';
+export { default as SuppliersFrom } from './pages/SuppliersFrom';
 export * from './services/authService';

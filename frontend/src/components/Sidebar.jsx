@@ -99,7 +99,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           label="Compras"
           submenu={[
             { label: "Órdenes", href: "#" },
-            { label: "Proveedores", href: "#" },
+            { label: "Proveedores", href: "/suppliers" },
           ]}
           open={openSubmenu}
           setOpen={setOpenSubmenu}
