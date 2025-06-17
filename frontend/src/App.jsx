@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
-import { Login, Dashboard, Register, CustomerList, CustomerForm, CategoryForm, CategoryList, BooksList, BooksForm, SuppliersFrom } from './index'
+import { Login, Dashboard, Register, CustomerList, CustomerForm, CategoryForm, CategoryList, BooksList, BooksForm, SuppliersFrom, SuppliersList } from './index'
 
 
 function App() {
@@ -40,8 +40,10 @@ function App() {
         <Route path="/books/create" element={isAuthenticated() ? <BooksForm /> : <Navigate to="/login" />} />
         <Route path="/books/edit/:id" element={isAuthenticated() ? <BooksForm /> : <Navigate to="/login" />} />
 
-        <Route path="/suppliers/create" element={isAuthenticated() ? <SuppliersFrom /> : <Navigate to="/login" />} />
 
+        <Route path="/suppliers" element={isAuthenticated() ? <SuppliersList /> : <Navigate to="/login" />} />
+        <Route path="/suppliers/create" element={isAuthenticated() ? <SuppliersFrom /> : <Navigate to="/login" />} />
+        <Route path="/suppliers/edit/:id" element={isAuthenticated() ? <SuppliersFrom /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
   )
