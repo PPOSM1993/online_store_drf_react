@@ -5,7 +5,6 @@ class SupplierAdmin(admin.ModelAdmin):
     list_display = ('name', 'tax_id', 'email', 'phone', 'is_active')
     search_fields = ('name', 'tax_id', 'email')
     list_filter = ('is_active', 'region', 'city')
-    filter_horizontal = ('supply_categories',)
 
 @admin.register(Region)
 class RegionAdmin(admin.ModelAdmin):
