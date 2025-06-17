@@ -86,6 +86,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           label="Ventas"
           submenu={[
             { label: "Pedidos", href: "#" },
+            { label: "Cotizaciones", href: "#" },
             { label: "Facturación", href: "#" },
             { label: "Clientes", href: "/customers" }, // ✅ ruta funcional
             { label: "Carritos abandonados", href: "#" },
