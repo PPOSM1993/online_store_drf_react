@@ -34,9 +34,16 @@ class City(models.Model):
 
 class Supplier(models.Model):
     name = models.CharField(max_length=255)
-    tax_id = models.CharField(max_length=20, unique=True)
+    tax_id = models.CharField(
+        "DNI",
+        max_length=20,
+        unique=True,
+        null=True,
+        blank=True,
+        validators=[rut_validator]
+    )
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=20)
+    phone = models.CharField("Phone", validators=[phone_regex], max_length=17, blank=True, unique=True)
     address = models.CharField(max_length=255)
     contact_person = models.CharField(max_length=255, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
