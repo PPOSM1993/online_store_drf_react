@@ -43,7 +43,6 @@ class Supplier(models.Model):
     notes = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     payment_terms = models.CharField(max_length=100, blank=True, null=True)
-    supply_categories = models.ManyToManyField(Category, blank=True)
     region = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, blank=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
 

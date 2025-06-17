@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import *
-from apps.category.models import Category
 
 class RegionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,10 +17,8 @@ class CitySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'region', 'region_id']
 
 class SupplierSerializer(serializers.ModelSerializer):
-    # Opcional: mostrar nombres legibles en la representación
-    supply_categories = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Category.objects.all()
-    )
+    # Opcional: mostrar nombres legibles en la representación    
+
     region = RegionSerializer(read_only=True)
     city = CitySerializer(read_only=True)
 
@@ -46,7 +43,6 @@ class SupplierSerializer(serializers.ModelSerializer):
             'notes',
             'is_active',
             'payment_terms',
-            'supply_categories',
             'region',
             'region_id',
             'city',
