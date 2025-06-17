@@ -135,20 +135,37 @@ const CustomerForm = () => {
                             {/* Otros campos */}
                             <div>
                                 <label className="block text-sm font-medium">RUT</label>
-                                <input type="text" name="tax_id" value={formData.tax_id} onChange={handleChange}
-                                    className="w-full mt-1 p-2 border rounded" placeholder="Ej: 12345678-9" />
+                                <input 
+                                    type="text" 
+                                    name="tax_id" 
+                                    value={formData.tax_id} 
+                                    onChange={handleChange}
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
+                                    disabled={!!id}
+                                    placeholder="Ej: 12345678-9" />
                             </div>
 
                             <div>
                                 <label className="block text-sm font-medium">Email</label>
-                                <input type="email" name="email" value={formData.email} onChange={handleChange}
-                                    className="w-full mt-1 p-2 border rounded" disabled={!!id} />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    placeholder="Ingrese Email"
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100" 
+                                    disabled={!!id} />
                             </div>
 
                             <div>
                                 <label className="block text-sm font-medium">Teléfono</label>
-                                <input type="text" name="phone" value={formData.phone} onChange={handleChange}
-                                    className="w-full mt-1 p-2 border rounded" disabled={!!id} />
+                                <input 
+                                    type="text" 
+                                    name="phone" 
+                                    value={formData.phone} 
+                                    onChange={handleChange}
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100" 
+                                    disabled={!!id} />
                             </div>
 
                             <div>
@@ -160,24 +177,36 @@ const CustomerForm = () => {
                             {/* Región y ciudad */}
                             <div>
                                 <label className="block text-sm font-medium">Región</label>
-                                <select name="region" value={formData.region} onChange={handleChange}
-                                    className="w-full mt-1 p-2 border rounded">
+                                <select
+                                    name="region"
+                                    value={formData.region ?? ""}
+                                    onChange={handleChange}
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
+                                >
                                     <option value="">Seleccione una región</option>
-                                    {regions.map(r => (
-                                        <option key={r.pk} value={r.pk}>{r.fields.name}</option>
+                                    {regions.map((r) => (
+                                        <option key={r.pk} value={r.pk}>
+                                            {r.fields.name}
+                                        </option>
                                     ))}
                                 </select>
                             </div>
 
                             <div>
                                 <label className="block text-sm font-medium">Ciudad</label>
-                                <select name="city" value={formData.city} onChange={handleChange}
-                                    className="w-full mt-1 p-2 border rounded">
+                                <select
+                                    name="city"
+                                    value={formData.city || ""}
+                                    onChange={handleChange}
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
+                                >
                                     <option value="">Seleccione una ciudad</option>
                                     {cities
                                         .filter(c => c.fields.region === parseInt(formData.region))
                                         .map(c => (
-                                            <option key={c.pk} value={c.pk}>{c.fields.name}</option>
+                                            <option key={c.pk} value={c.pk}>
+                                                {c.fields.name}
+                                            </option>
                                         ))}
                                 </select>
                             </div>
