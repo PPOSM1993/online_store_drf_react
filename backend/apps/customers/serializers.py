@@ -39,14 +39,47 @@ class CustomersSerializer(serializers.ModelSerializer):
             'email',
             'phone',
             'address',
-            'region', 'region_id',
-            'city', 'city_id',
+            'region', 
+            'region_id',
+            'city', 
+            'city_id',
+            'created_at',
+            'updated_at',
         ]
+        
+        read_only_fields = ['id', 'created_at', 'updated_at']
 
-    def validate_email(self, value):
-        if Customers.objects.filter(email=value).exists():
-            raise serializers.ValidationError("Este correo ya existe.")
-        return value
+        def validate_email(self, value):
+            # Si estamos editando (PUT/PATCH)
+            if self.instance:
+                # Excluir al cliente actual en la verificación de email único
+                if Customers.objects.exclude(pk=self.instance.pk).filter(email=value).exists():
+                    raise serializers.ValidationError("Este correo ya existe.")
+            else:
+                # Si es creación (POST)
+                if Customers.objects.filter(email=value).exists():
+                    raise serializers.ValidationError("Este correo ya existe.")
+            return value
+        
+        def validate_tax_id(self, value):
+            if value:
+                if self.instance:
+                    if Customers.objects.exclude(pk=self.instance.pk).filter(tax_id=value).exists():
+                        raise serializers.ValidationError("Este RUT ya está registrado.")
+                else:
+                    if Customers.objects.filter(tax_id=value).exists():
+                        raise serializers.ValidationError("Este RUT ya está registrado.")
+            return value
+        
+        def validate_tax_id(self, value):
+            if value:
+                if self.instance:
+                    if Customers.objects.exclude(pk=self.instance.pk).filter(phone=value).exists():
+                        raise serializers.ValidationError("Este Telefono ya está registrado.")
+                else:
+                    if Customers.objects.filter(phone=value).exists():
+                        raise serializers.ValidationError("Este Telefono ya está registrado.")
+            return value
 
     def validate(self, data):
         tipo = data.get('customer_type')
