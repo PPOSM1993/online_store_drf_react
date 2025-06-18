@@ -17,16 +17,17 @@ class CitySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'region', 'region_id']
 
 class WorkerSerializer(serializers.ModelSerializer):
-    region_id = serializers.PrimaryKeyRelatedField(
-        queryset=Region.objects.all(), source='region', write_only=True
-    )
-    city_id = serializers.PrimaryKeyRelatedField(
-        queryset=City.objects.all(), source='city', write_only=True
-    )
 
     region = serializers.StringRelatedField(read_only=True)
     city = serializers.StringRelatedField(read_only=True)
 
+
+    region_id = serializers.PrimaryKeyRelatedField(
+        queryset=Region.objects.all(), source='region', write_only=True, required=False, allow_null=True
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset=City.objects.all(), source='city', write_only=True, required=False, allow_null=True
+    )
     class Meta:
         model = Worker
         fields = [
@@ -39,19 +40,18 @@ class WorkerSerializer(serializers.ModelSerializer):
             'position',
             'department',
             'salary',
+            'region',        # Nombre de la región (read-only)
+            'region_id',     # ID de la región (write-only)
+            'city',          # Nombre de la ciudad (read-only)
+            'city_id',       # ID de la ciudad (write-only)
             'contract_type',
             'date_joined',
             'is_active',
             'notes',
-            'user',
-            'region', 
-            'region_id',
-            'city', 
-            'city_id',
             'created_at',
-            'updated_at',
+            'updated_at'
         ]
-        read_only_fields = ['date_joined', 'id', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'date_joined', 'created_at', 'updated_at']
 
     def validate_email(self, value):
         if self.instance:
@@ -88,4 +88,3 @@ class WorkerSerializer(serializers.ModelSerializer):
         if region and not city:
             raise serializers.ValidationError("Debe elegir una ciudad si selecciona una región.")
         return data
-
