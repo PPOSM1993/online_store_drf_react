@@ -75,7 +75,7 @@ class Worker(models.Model):
     class Meta:
         verbose_name = "Trabajador"
         verbose_name_plural = "Trabajadores"
-        ordering = ['last_name', 'first_name']
+        ordering = ['full_name']
 
     def __str__(self):
         return f"{self.full_name} ({self.rut})"
