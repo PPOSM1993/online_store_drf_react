@@ -12,6 +12,8 @@ urlpatterns = [
     path('api/books/', include('apps.books.urls')),  # Asegúrate de que el path sea este
     path('api/suppliers/', include('apps.suppliers.urls')),
     path('api/worker/', include('apps.worker.urls')),
+    path('api/permissions/', include('apps.permissions.urls')),
+
 ]
 
 if settings.DEBUG:
