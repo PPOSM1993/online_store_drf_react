@@ -121,7 +121,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           icon={FaUserTie}
           label="RRHH"
           submenu={[
-            { label: "Trabajadores", href: "#" },
+            { label: "Trabajadores", href: "/worker" },
             { label: "Permisos", href: "#" },
           ]}
           open={openSubmenu}

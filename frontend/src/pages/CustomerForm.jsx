@@ -145,15 +145,6 @@ const CustomerForm = () => {
                             {/* Otros campos */}
                             <div>
                                 <label className="block text-sm font-medium">RUT</label>
-
-                                <input
-                                    type="text"
-                                    name="tax_id"
-                                    value={formData.tax_id}
-                                    onChange={handleChange}
-                                    disabled={!!id}
-                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
-                                />
                                 <input 
                                     type="text" 
                                     name="tax_id" 
@@ -167,10 +158,6 @@ const CustomerForm = () => {
 
                             <div>
                                 <label className="block text-sm font-medium">Email</label>
-
-                                <input type="email" name="email" value={formData.email} onChange={handleChange}
-                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100" disabled={!!id} />
-
                                 <input
                                     type="email"
                                     name="email"
@@ -184,16 +171,13 @@ const CustomerForm = () => {
 
                             <div>
                                 <label className="block text-sm font-medium">Teléfono</label>
-                                <input type="text" name="phone" value={formData.phone} onChange={handleChange}
-                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100" disabled={!!id} />
-
                                 <input 
                                     type="text" 
                                     name="phone" 
                                     value={formData.phone} 
                                     onChange={handleChange}
                                     className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100" 
-                                    disabled={!!id} />
+                                    disabled={!!id} placeholder="Ingrese Telefono"/>
                             </div>
 
                             <div>
