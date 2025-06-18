@@ -13,7 +13,9 @@ import {
   SuppliersFrom, 
   SuppliersList, 
   WorkerList,
-  WorkerForm
+  WorkerForm,
+  PermissionForm,
+  PermissionList
 } from './index'
 
 
@@ -64,6 +66,9 @@ function App() {
         <Route path="/worker/create" element={isAuthenticated() ? <WorkerForm /> : <Navigate to="/login" />} />
         <Route path="/worker/edit/:id" element={isAuthenticated() ? <WorkerForm /> : <Navigate to="/login" />} />
         
+
+        <Route path="/permissions" element={isAuthenticated() ? <PermissionList /> : <Navigate to="/login" />} />
+        <Route path="/permissions/create" element={isAuthenticated() ? <PermissionForm /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
   )
