@@ -122,7 +122,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           label="RRHH"
           submenu={[
             { label: "Trabajadores", href: "/worker" },
-            { label: "Permisos", href: "#" },
+            { label: "Permisos", href: "/permissions" },
           ]}
           open={openSubmenu}
           setOpen={setOpenSubmenu}
