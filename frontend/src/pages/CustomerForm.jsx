@@ -240,7 +240,7 @@ const CustomerForm = () => {
                             </div>
 
                             <div className="mt-4 text-right">
-                                <button type="submit" className="bg-green-700 text-white p-3 rounded hover:bg-green-800 cursor-poisenter">
+                                <button type="submit" className="bg-green-700 text-white p-3 rounded hover:bg-green-800 cursor-pointer">
                                     <FaSave className="inline mr-1" />
                                     {id ? "Actualizar Cliente" : "Crear Cliente"}
                                 </button>

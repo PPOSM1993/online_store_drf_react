@@ -27,7 +27,7 @@ const CustomerList = () => {
             <div className="flex-1 md:ml-64">
                 <Header />
                 <main className="p-4 sm:p-6">
-                    <h1 className="text-xl sm:text-2xl font-bold mb-4 text-gray-800">Customer's List</h1>
+                    <h1 className="text-xl sm:text-2xl font-bold mb-4 text-gray-800">Clientes</h1>
                     <CustomerTable />
 
                 </main>
