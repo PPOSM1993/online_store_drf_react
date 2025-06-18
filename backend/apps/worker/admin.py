@@ -9,7 +9,7 @@ class WorkerAdmin(admin.ModelAdmin):
     )
     list_filter = ('department', 'contract_type', 'is_active')
     search_fields = ('full_name', 'tax_id', 'email', 'position')
-    ordering = ('last_name', 'first_name')
+    ordering = ('full_name', 'tax_id')
     readonly_fields = ('date_joined',)
 
     fieldsets = (
