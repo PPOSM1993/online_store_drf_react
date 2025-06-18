@@ -36,8 +36,7 @@ User = get_user_model()
 class Worker(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='worker_profile', null=True, blank=True)
 
-    first_name = models.CharField("Nombre", max_length=100)
-    last_name = models.CharField("Apellido", max_length=100)
+    full_name = models.CharField("Nombre", max_length=100)
     tax_id = models.CharField(
         "DNI",
         max_length=20,
@@ -70,10 +69,13 @@ class Worker(models.Model):
     is_active = models.BooleanField("Activo", default=True)
     notes = models.TextField("Notas", blank=True)
 
+    created_at = models.DateTimeField("Created at", default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
+
     class Meta:
         verbose_name = "Trabajador"
         verbose_name_plural = "Trabajadores"
         ordering = ['last_name', 'first_name']
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} ({self.rut})"
+        return f"{self.full_name} ({self.rut})"

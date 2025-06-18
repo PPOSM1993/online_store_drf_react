@@ -16,8 +16,6 @@ class CustomersListAPIView(APIView):
         customers = Customers.objects.all()
         serializer = CustomersSerializer(customers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-
 class CreateCustomerAPIView(CreateAPIView):
     queryset = Customers.objects.all()
     serializer_class = CustomersSerializer
