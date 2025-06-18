@@ -131,7 +131,7 @@ const WorkerForm = () => {
                                     value={formData.full_name}
                                     onChange={handleChange}
                                     placeholder="Ingrese Nombre"
-                                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                 />
                             </div>
 
@@ -143,7 +143,7 @@ const WorkerForm = () => {
                                     value={formData.tax_id}
                                     onChange={handleChange}
                                     placeholder="Ej: 12345678-9"
-                                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                     disabled={!!id}
                                 />
                             </div>
@@ -156,7 +156,7 @@ const WorkerForm = () => {
                                     value={formData.email}
                                     onChange={handleChange}
                                     placeholder="Ingrese Email"
-                                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                     disabled={!!id}
                                 />
                             </div>
@@ -169,7 +169,7 @@ const WorkerForm = () => {
                                     value={formData.phone}
                                     onChange={handleChange}
                                     placeholder="Ingrese Teléfono"
-                                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                     disabled={!!id}
                                 />
                             </div>
@@ -182,7 +182,7 @@ const WorkerForm = () => {
                                     value={formData.address}
                                     onChange={handleChange}
                                     placeholder="Ingrese Dirección"
-                                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                 />
                             </div>
 
@@ -194,7 +194,7 @@ const WorkerForm = () => {
                                     value={formData.position}
                                     onChange={handleChange}
                                     placeholder="Ej: Técnico"
-                                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                 />
                             </div>
 
@@ -206,7 +206,7 @@ const WorkerForm = () => {
                                     value={formData.department}
                                     onChange={handleChange}
                                     placeholder="Ej: Soporte"
-                                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                 />
                             </div>
 
@@ -218,7 +218,7 @@ const WorkerForm = () => {
                                     value={formData.salary}
                                     onChange={handleChange}
                                     placeholder="Ej: 500000"
-                                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                 />
                             </div>
 
@@ -228,7 +228,7 @@ const WorkerForm = () => {
                                     name="region"
                                     value={formData.region || ""}
                                     onChange={handleChange}
-                                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                 >
                                     <option value="">Seleccione una región</option>
                                     {regions.map((r) => (
@@ -245,7 +245,7 @@ const WorkerForm = () => {
                                     name="city"
                                     value={formData.city || ""}
                                     onChange={handleChange}
-                                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                 >
                                     <option value="">Seleccione una ciudad</option>
                                     {cities
@@ -266,7 +266,7 @@ const WorkerForm = () => {
                                     name="contract_type"
                                     value={formData.contract_type || ""}
                                     onChange={handleChange}
-                                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                 >
                                     <option value="">Seleccione tipo de contrato</option>
                                     <option value="indefinido">Indefinido</option>
@@ -294,7 +294,7 @@ const WorkerForm = () => {
                                     onChange={handleChange}
                                     rows={4}
                                     placeholder="Notas adicionales del trabajador"
-                                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full mt-1 p-2 border rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-100"
                                 />
                             </div>
 
