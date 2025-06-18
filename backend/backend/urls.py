@@ -10,7 +10,8 @@ urlpatterns = [
     path('api/customers/', include('apps.customers.urls')),
     path('api/category/', include('apps.category.urls')),
     path('api/books/', include('apps.books.urls')),  # Asegúrate de que el path sea este
-    path('api/suppliers/', include('apps.suppliers.urls'))
+    path('api/suppliers/', include('apps.suppliers.urls')),
+    path('api/worker/', include('apps.worker.urls')),
 ]
 
 if settings.DEBUG:
