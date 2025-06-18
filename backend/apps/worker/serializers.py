@@ -1,6 +1,21 @@
 from rest_framework import serializers
 from .models import Worker, Region, City
 
+class RegionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Region
+        fields = ['id', 'name']
+
+class CitySerializer(serializers.ModelSerializer):
+    region = RegionSerializer(read_only=True)
+    region_id = serializers.PrimaryKeyRelatedField(
+        queryset=Region.objects.all(), source='region', write_only=True
+    )
+
+    class Meta:
+        model = City
+        fields = ['id', 'name', 'region', 'region_id']
+
 class WorkerSerializer(serializers.ModelSerializer):
     region_id = serializers.PrimaryKeyRelatedField(
         queryset=Region.objects.all(), source='region', write_only=True
