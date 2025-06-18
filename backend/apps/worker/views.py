@@ -53,7 +53,7 @@ def SearchWorker(request):
     else:
         worker = Worker.objects.all()
 
-    serializer = WorkersListAPIView(worker, many=True)
+    serializer = WorkerSerializer(worker, many=True)
     return Response(serializer.data)
 
 @api_view(['GET', 'PUT'])
