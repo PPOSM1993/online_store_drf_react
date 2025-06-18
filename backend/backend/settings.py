@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'apps.books',
     'apps.suppliers',
     'apps.worker',
-
+    'apps.permissions',
 ]
 
 MIDDLEWARE = [
