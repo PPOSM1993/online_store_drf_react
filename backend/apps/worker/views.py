@@ -19,7 +19,7 @@ class WorkersListAPIView(APIView):
 
 class WorkerCustomerAPIView(CreateAPIView):
     queryset = Worker.objects.all()
-    serializer_class = Worker
+    serializer_class = WorkerSerializer
     permission_classes = [IsAuthenticated]
     
 

@@ -87,4 +87,4 @@ class SupplierSerializer(serializers.ModelSerializer):
             else:
                 if Supplier.objects.filter(phone=value).exists():
                      raise serializers.ValidationError("Este Telefono ya está registrado.")
-        return value
+        return valueaa
