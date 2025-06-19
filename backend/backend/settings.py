@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'apps.suppliers',
     'apps.worker',
     'apps.permissions',
+    'apps.orders',
 ]
 
 MIDDLEWARE = [

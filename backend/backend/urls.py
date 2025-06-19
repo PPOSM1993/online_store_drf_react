@@ -13,7 +13,7 @@ urlpatterns = [
     path('api/suppliers/', include('apps.suppliers.urls')),
     path('api/worker/', include('apps.worker.urls')),
     path('api/permissions/', include('apps.permissions.urls')),
-
+    path('api/orders/', include('apps.orders.urls')),
 ]
 
 if settings.DEBUG:
